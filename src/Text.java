@@ -39,7 +39,7 @@ public class Text {
 
         }catch(Exception FileNotFoundException){
             System.out.println(ERROR_FICHERO);
-            fileName = main.writeString();
+            fileName = main.writeString(main.INTRODUCE_TEXTO);
             text = readFile(fileName);
 
 

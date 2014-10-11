@@ -12,7 +12,7 @@ public class Main {
 
     private static final String WELCOME = "Bienvenido al generador aleatorio de textos";
     private static final String INTRODUCE_LINEA = "Introduzca el numero de caracteres que tendra el texto que desea generar:";
-    private static final String INTRODUCE_TEXTO = "Introduzca el nombre del fichero que contiene el texto base:";
+    public static final String INTRODUCE_TEXTO = "Introduzca el nombre del fichero que contiene el texto base:";
     private static final String ERROR_LECTURA_ENTERO = "Error al introducir el numero";
 
     private static Scanner sc;
