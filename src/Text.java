@@ -12,15 +12,11 @@ public class Text {
     private final String ROUTE = "texts/";
 
     private File file;
-    private String text;
     private FileReader fr;
     private BufferedReader br;
 
-    //Variable para hacer llamadas a clase Main
-    private Main main = new Main();
-
     public String readFile(String fileName){
-
+        String text;
         try {
             // Apertura del fichero y creacion de BufferedReader para poder
             // hacer una lectura comoda (disponer del metodo readLine()).
@@ -39,7 +35,7 @@ public class Text {
 
         }catch(Exception FileNotFoundException){
             System.out.println(ERROR_FICHERO);
-            fileName = main.writeString(main.INTRODUCE_TEXTO);
+            fileName = Main.writeString(Main.INTRODUCE_TEXTO);
             text = readFile(fileName);
 
 

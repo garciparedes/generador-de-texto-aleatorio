@@ -51,15 +51,13 @@ public class Main {
 
         try{
             sc = new Scanner(System.in);
-            textLength = sc.nextInt();
+            return sc.nextInt();
 
         }catch (Exception InputMismatchException){
             System.out.println(errorMessage);
-            textLength = writeInt(message, errorMessage);
+            return writeInt(message, errorMessage);
 
         }
-
-        return textLength;
     }
 
     public static String writeString(String message){
