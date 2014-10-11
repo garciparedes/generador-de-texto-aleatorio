@@ -28,7 +28,6 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-<<<<<<< Updated upstream
 
         text = new Text();
 
@@ -45,10 +44,6 @@ public class Main {
 
         System.out.println(finalText);
 
-=======
-		WordList wordList = new WordList(null, null, null, 0);
-		
->>>>>>> Stashed changes
 	}
 
     public static int writeInt(String message, String errorMessage){
