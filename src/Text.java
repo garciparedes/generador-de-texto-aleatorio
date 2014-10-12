@@ -8,30 +8,16 @@ import java.io.FileReader;
  */
 public class Text {
 
-    private final String ERROR_FICHERO = "Error: Fichero no encontrado";
-    private final String ROUTE = "texts/";
+    private static final String ERROR_FICHERO = "Error: Fichero no encontrado";
+    private static final String ROUTE = "texts/";
 
-    private File file;
-    private FileReader fr;
-    private BufferedReader br;
-	private String text;
-
-	//Constructor que crea el texto desde fichero
-	public Text(String fileName){
-		this.text = readFile(fileName);
-	}
-
-	//Constructor que crea el objeto texto a partir de otro anterior
-	public Text(Text oriText, int refi, int lenght){
-		this.text = generateRandomText(oriText, refi, lenght);
-	}
-
-	public String getText(){
-		return text;
-	}
+    private static File file;
+    private static FileReader fr;
+    private static BufferedReader br;
+	private static String text;
 
 	//Lee desde fichero y genera el texto con el contenido que hay en él
-	private String readFile(String fileName){
+	public static String readFile(String fileName){
         try {
             // Apertura del fichero y creacion de BufferedReader para poder
             // hacer una lectura comoda (disponer del metodo readLine()).
@@ -72,11 +58,11 @@ public class Text {
 
 
 	//genera un texto aleatorio a partir de los parametros que se le manda
-	private String generateRandomText(Text oriText, int refi, int lenght){
+	public static String generateRandomText(String oriText, int refi, int lenght){
 
 		// TODO Generar el texto aleatorio.
 
-		String strText = oriText.getText();
+		String strText = oriText;
 
 		return strText;
 	}

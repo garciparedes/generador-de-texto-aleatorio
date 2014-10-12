@@ -22,9 +22,9 @@ public class Main {
     private static int textRefi;
 
     //Variable para hacer llamadas a clase Text
-    private static Text text;
+    private static String text;
 
-    private static Text finalText;
+    private static String finalText;
 
     /**
 	 * @param args
@@ -43,13 +43,13 @@ public class Main {
         fileName = writeString(INTRODUCE_TEXTO);
 
 		//Creamos el objeto para el antiguo texto
-		text = new Text(fileName);
+		text = Text.readFile(fileName);
 
 		//Creamos el objeto para el nuevo texto
-		finalText = new Text(text, textRefi, textLength);
+		finalText = Text.generateRandomText(text, textRefi, textLength);
 
 		//Imprimimos el resultado en pantalla
-        System.out.println(finalText.getText());
+        System.out.println(finalText);
 
 	}
 
