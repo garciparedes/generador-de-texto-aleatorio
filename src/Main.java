@@ -11,20 +11,12 @@ import java.util.Scanner;
 public class Main {
 
     private static final String WELCOME = "Bienvenido al generador aleatorio de textos";
-    private static final String INTRODUCE_NUM_CHAR = "Introduzca el numero de caracteres que tendra el texto que desea generar:";
-    private static final String INTRODUCE_NUM_REFI = "Introduzca el nivel de refinamiento que tendra el texto que desea generar:";
-    public static final String INTRODUCE_TEXTO = "Introduzca el nombre del fichero que contiene el texto base:";
-    private static final String ERROR_LECTURA_ENTERO = "Error: El numero tiene que ser un entero positivo";
+    private static final String INTRODUCE_NUM_CHAR = "Introduzca el numero de caracteres que tendra el texto que desea generar: ";
+    private static final String INTRODUCE_NUM_REFI = "Introduzca el nivel de refinamiento que tendra el texto que desea generar: ";
+    public static final String INTRODUCE_TEXTO = "Introduzca el nombre del fichero que contiene el texto base: ";
+    private static final String ERROR_LECTURA_ENTERO = "Error: El numero tiene que ser un entero positivo.";
 
     private static Scanner sc;
-    private static String fileName;
-    private static int textLength;
-    private static int textRefi;
-
-    //Variable para hacer llamadas a clase Text
-    private static Text text;
-
-    private static Text finalText;
 
     /**
 	 * @param args
@@ -34,19 +26,19 @@ public class Main {
         System.out.println(WELCOME);
 
         //Leemos el numero de lineas que tendra el fichero
-        textLength = writeInt(INTRODUCE_NUM_CHAR, ERROR_LECTURA_ENTERO);
+        int textLength = writeInt(INTRODUCE_NUM_CHAR, ERROR_LECTURA_ENTERO);
 
 		//Leemos el nivel de refinamiento que tendra el fichero
-		textRefi = writeInt(INTRODUCE_NUM_REFI, ERROR_LECTURA_ENTERO);
+		int textRefi = writeInt(INTRODUCE_NUM_REFI, ERROR_LECTURA_ENTERO);
 
         //Leemos el nombre de fichero
-        fileName = writeString(INTRODUCE_TEXTO);
+        String fileName = writeString(INTRODUCE_TEXTO);
 
 		//Creamos el objeto para el antiguo texto
-		text = new Text(fileName);
+		Text text = new Text(fileName);
 
 		//Creamos el objeto para el nuevo texto
-		finalText = new Text(text, textRefi, textLength);
+		Text finalText = new Text(text, textRefi, textLength);
 
 		//Imprimimos el resultado en pantalla
         System.out.println(finalText.getText());
@@ -55,13 +47,11 @@ public class Main {
 
     public static int writeInt(String message, String errorMessage){
 
-		int n;
-
-        System.out.println(message);
+        System.out.print(message);
 
         try{
             sc = new Scanner(System.in);
-            n = sc.nextInt();
+            int n = sc.nextInt();
 
             if (n<= 0){return writeInt(message, errorMessage);}
 
@@ -75,7 +65,7 @@ public class Main {
     }
 
     public static String writeString(String message){
-        System.out.println(message);
+        System.out.print(message);
         sc = new Scanner(System.in);
 
         return sc.nextLine();

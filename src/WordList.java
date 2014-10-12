@@ -21,12 +21,9 @@ public class WordList {
 		this.numWords = numwords;
 	}
 
-
-
-
     /**
      *
-     * @param word
+     * @param word caracter al que representa el objeto
      */
     public void setWord(String word) {
         this.word = word;
@@ -34,7 +31,7 @@ public class WordList {
 
     /**
      *
-     * @param positions
+     * @param positions posiciones del texto fuente en las que se encuentra el caracter
      */
     public void setPositions(ArrayList<Integer> positions) {
         this.positions = positions;
@@ -42,7 +39,7 @@ public class WordList {
 
     /**
      *
-     * @param wordLists
+     * @param wordLists lista de caracteres que siguen al caracter objeto
      */
     public void setWordLists(ArrayList<WordList> wordLists) {
         this.wordLists = wordLists;
