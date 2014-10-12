@@ -14,9 +14,24 @@ public class Text {
     private File file;
     private FileReader fr;
     private BufferedReader br;
+	private String text;
 
-    public String readFile(String fileName){
-        String text;
+	//Constructor que crea el texto desde fichero
+	public Text(String fileName){
+		this.text = readFile(fileName);
+	}
+
+	//Constructor que crea el objeto texto a partir de otro anterior
+	public Text(Text oriText, int refi, int lenght){
+		this.text = generateRandomText(oriText, refi, lenght);
+	}
+
+	public String getText(){
+		return text;
+	}
+
+	//Lee desde fichero y genera el texto con el contenido que hay en él
+	private String readFile(String fileName){
         try {
             // Apertura del fichero y creacion de BufferedReader para poder
             // hacer una lectura comoda (disponer del metodo readLine()).
@@ -56,4 +71,13 @@ public class Text {
     }
 
 
+	//genera un texto aleatorio a partir de los parametros que se le manda
+	private String generateRandomText(Text oriText, int refi, int lenght){
+
+		// TODO Generar el texto aleatorio.
+
+		String strText = oriText.getText();
+
+		return strText;
+	}
 }
