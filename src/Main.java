@@ -44,7 +44,12 @@ public class Main {
         System.out.println(finalText.getText());
 
 	}
-
+	/**
+	 * Función que pide la entrada de un entero con detección de errores
+	 * @param message Mensaje de petición que se mostrará
+	 * @param errorMessage Mensaje de error que puede surgir
+	 * @return Devuelve un número positivo introducido por entrada estandar
+	 */
     public static int writeInt(String message, String errorMessage){
 
         System.out.print(message);
@@ -63,7 +68,11 @@ public class Main {
 
         }
     }
-
+    /**
+     * Función que pide el nombre de un fichero de texto
+     * @param message  Mensaje de petición que se mostrará
+     * @return Devuelve el nombre de un fichero de texto
+     */
     public static String writeString(String message){
         System.out.print(message);
         sc = new Scanner(System.in);
