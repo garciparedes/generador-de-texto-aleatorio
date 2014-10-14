@@ -13,7 +13,7 @@ public class WordList {
 	private ArrayList<Integer> positions;
 	private ArrayList<WordList> wordLists;
 	
-	public WordList(String word, ArrayList<Integer> positions, ArrayList<WordList> wordLists, int numwords){
+	public WordList(String word, ArrayList<Integer> positions, ArrayList<WordList> wordLists){
 		this.word = word;
 		this.positions = positions;
 		this.wordLists = wordLists;
@@ -66,4 +66,31 @@ public class WordList {
     public ArrayList<WordList> getWordLists() {
         return wordLists;
     }
+
+	public static ArrayList<WordList> newInstance(Text text, int refi){
+
+		String strText = text.getText();
+		ArrayList<WordList> al = new ArrayList<WordList>();
+		String a;
+		WordList wl;
+
+		for (int i = 0; i <= strText.length(); i++){
+			a = String.valueOf(strText.charAt(i));
+
+			wl = new WordList(a,null, null);
+
+			if (al.contains(wl)){
+				wl.setPositions();
+
+			}
+			else{
+				al.add(wl);
+
+			}
+
+
+		}
+
+		return  al;
+	}
 }

@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.util.ArrayList;
 
 /**
  *
@@ -23,7 +24,7 @@ public class Text {
 
 	//Constructor que crea el objeto texto a partir de otro anterior
 	public Text(Text oriText, int refi, int lenght){
-		this.text = generateRandomText(oriText, refi, lenght);
+		this.text = genText(oriText, refi, lenght);
 	}
 
 	public String getText(){
@@ -72,11 +73,13 @@ public class Text {
 
 
 	//genera un texto aleatorio a partir de los parametros que se le manda
-	private String generateRandomText(Text oriText, int refi, int lenght){
+	private String genText(Text oriText, int refi, int lenght){
 
-		// TODO Generar el texto aleatorio.
+		String strText;
 
-		String strText = oriText.getText();
+		ArrayList<WordList> al = WordList.newInstance(oriText,refi);
+
+
 
 		return strText;
 	}
