@@ -77,11 +77,11 @@ public class WordList {
         switch (refi){
             case 0:
 
-                for (int i = 0; i <= strText.length(); i++){
-                    str = String.valueOf(strText.charAt(i+1));
+                for (int i = 0; i < strText.length(); i++){
+                    str = String.valueOf(strText.charAt(i));
                     wl = new WordList(str,null, null);
 
-                    if (!al.contains(wl)){
+                    if (!wl.contiene(al)){
                         al.add(wl);
                     }
                 }
@@ -97,4 +97,13 @@ public class WordList {
 
 		return  al;
 	}
+
+    private boolean contiene(ArrayList<WordList> al){
+        for (int i = 0; i<al.size(); i++){
+            if (al.get(i).getWord().equals(this.getWord())){
+                return true;
+            }
+        }
+        return false;
+    }
 }
