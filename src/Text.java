@@ -75,18 +75,29 @@ public class Text {
 	//genera un texto aleatorio a partir de los parametros que se le manda
 	private StringBuilder genText(Text oriText, int refi, int lenght){
 
-		StringBuilder strText;
+		StringBuilder strText = new StringBuilder();
 
 		ArrayList<WordList> al = WordList.newInstance(oriText,refi);
+
 
 
         for (int i = 0; i<al.size();i++){
             System.out.println(al.get(i).getWord());
         }
 
+
+
+
+        int a;
+        while (lenght > 0 ){
+            a = (int)(Math.random() * al.size());
+
+            strText.append(al.get(a).getWord());
+            lenght--;
+        }
         //Provisional
-        strText = oriText.getText();
 
 		return strText;
 	}
+
 }
