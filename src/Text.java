@@ -15,7 +15,7 @@ public class Text {
     private File file;
     private FileReader fr;
     private BufferedReader br;
-	private String text;
+	private StringBuilder text;
 
 	//Constructor que crea el texto desde fichero
 	public Text(String fileName){
@@ -27,12 +27,14 @@ public class Text {
 		this.text = genText(oriText, refi, lenght);
 	}
 
-	public String getText(){
+	public StringBuilder getText(){
 		return text;
 	}
 
 	//Lee desde fichero y genera el texto con el contenido que hay en él
-	private String readFile(String fileName){
+	private StringBuilder readFile(String fileName){
+        StringBuilder textBuilder = new StringBuilder();
+
         try {
             // Apertura del fichero y creacion de BufferedReader para poder
             // hacer una lectura comoda (disponer del metodo readLine()).
@@ -43,11 +45,9 @@ public class Text {
 
             // Lectura del fichero
             String linea;
-            String textBuffer = "";
             while((linea=br.readLine())!=null) {
-                textBuffer = textBuffer + linea;
+                textBuilder.append(linea);
             }
-            text = textBuffer;
 
         }catch(Exception FileNotFoundException){
             System.out.println(ERROR_FICHERO);
@@ -68,18 +68,24 @@ public class Text {
             }
         }
 
-        return text;
+        return textBuilder;
     }
 
 
 	//genera un texto aleatorio a partir de los parametros que se le manda
-	private String genText(Text oriText, int refi, int lenght){
+	private StringBuilder genText(Text oriText, int refi, int lenght){
 
-		String strText;
+		StringBuilder strText;
 
 		ArrayList<WordList> al = WordList.newInstance(oriText,refi);
 
 
+        for (int i = 0; i<al.size();i++){
+            System.out.println(al.get(i).getWord());
+        }
+
+        //Provisional
+        strText = oriText.getText();
 
 		return strText;
 	}

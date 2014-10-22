@@ -68,28 +68,32 @@ public class WordList {
     }
 
 	public static ArrayList<WordList> newInstance(Text text, int refi){
-
-		String strText = text.getText();
+		StringBuilder strText = text.getText();
 		ArrayList<WordList> al = new ArrayList<WordList>();
-		String a;
+		String str;
 		WordList wl;
 
-		for (int i = 0; i <= strText.length(); i++){
-			a = String.valueOf(strText.charAt(i));
 
-			wl = new WordList(a,null, null);
+        switch (refi){
+            case 0:
 
-			if (al.contains(wl)){
-				wl.setPositions();
+                for (int i = 0; i <= strText.length(); i++){
+                    str = String.valueOf(strText.charAt(i+1));
+                    wl = new WordList(str,null, null);
 
-			}
-			else{
-				al.add(wl);
+                    if (!al.contains(wl)){
+                        al.add(wl);
+                    }
+                }
 
-			}
+            case 1:
 
 
-		}
+            default:
+
+
+        }
+
 
 		return  al;
 	}

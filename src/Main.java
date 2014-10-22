@@ -58,7 +58,7 @@ public class Main {
             sc = new Scanner(System.in);
             int n = sc.nextInt();
 
-            if (n<= 0) {
+            if (n< 0) {
             		return writeInt(message, errorMessage);
             	}
 
