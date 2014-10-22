@@ -9,22 +9,22 @@ import java.util.ArrayList;
  *
  */
 public class WordList {
-	private String word;
+	private char letter;
 	private ArrayList<Integer> positions;
 	private ArrayList<WordList> wordLists;
 	
-	public WordList(String word, ArrayList<Integer> positions, ArrayList<WordList> wordLists){
-		this.word = word;
+	public WordList(char letter, ArrayList<Integer> positions, ArrayList<WordList> wordLists){
+		this.letter = letter;
 		this.positions = positions;
 		this.wordLists = wordLists;
 	}
 
     /**
-     * Setter de word
-     * @param word Caracter al que representa el objeto
+     * Setter de letter
+     * @param letter Caracter al que representa el objeto
      */
-    public void setWord(String word) {
-        this.word = word;
+    public void setLetter(char letter) {
+        this.letter = letter;
     }
 
     /**
@@ -44,11 +44,11 @@ public class WordList {
     }
 
     /**
-     * Getter de word
-     * @return word
+     * Getter de letter
+     * @return letter
      */
-    public String getWord() {
-        return word;
+    public char getLetter() {
+        return letter;
     }
 
     /**
@@ -70,7 +70,7 @@ public class WordList {
 	public static ArrayList<WordList> newInstance(Text text, int refi){
 		StringBuilder strText = text.getText();
 		ArrayList<WordList> al = new ArrayList<WordList>();
-		String str;
+		char letter;
 		WordList wl;
 
 
@@ -78,8 +78,8 @@ public class WordList {
             case 0:
 
                 for (int i = 0; i < strText.length(); i++){
-                    str = String.valueOf(strText.charAt(i));
-                    wl = new WordList(str,null, null);
+                    letter = strText.charAt(i);
+                    wl = new WordList(letter,null, null);
 
                     if (!wl.contiene(al)){
                         al.add(wl);
@@ -100,7 +100,7 @@ public class WordList {
 
     private boolean contiene(ArrayList<WordList> al){
         for (int i = 0; i<al.size(); i++){
-            if (al.get(i).getWord().equals(this.getWord())){
+            if (al.get(i).getLetter() == this.getLetter()){
                 return true;
             }
         }

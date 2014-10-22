@@ -82,7 +82,7 @@ public class Text {
 
 
         for (int i = 0; i<al.size();i++){
-            System.out.println(al.get(i).getWord());
+            System.out.println(al.get(i).getLetter());
         }
 
 
@@ -92,9 +92,10 @@ public class Text {
         while (lenght > 0 ){
             a = (int)(Math.random() * al.size());
 
-            strText.append(al.get(a).getWord());
+            strText.append(al.get(a).getLetter());
             lenght--;
         }
+
         //Provisional
 
 		return strText;
