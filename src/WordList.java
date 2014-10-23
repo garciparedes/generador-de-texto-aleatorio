@@ -78,8 +78,13 @@ public class WordList {
             case 0:
 
                 for (int i = 0; i < strText.length(); i++){
+<<<<<<< Updated upstream
                     letter = strText.charAt(i);
                     wl = new WordList(letter,null, null);
+=======
+                    str = String.valueOf(strText.charAt(i));
+                    wl = new WordList(str, null, null);
+>>>>>>> Stashed changes
 
                     if (!wl.contiene(al)){
                         al.add(wl);
