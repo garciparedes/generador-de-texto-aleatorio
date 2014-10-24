@@ -67,40 +67,46 @@ public class WordList {
         return wordLists;
     }
 
+
+    public void addPosition(Integer position){
+        this.positions.add(position);
+
+    }
+
 	public static ArrayList<WordList> newInstance(Text text, int refi){
 		StringBuilder strText = text.getText();
-		ArrayList<WordList> al = new ArrayList<WordList>();
-		char letter;
-		WordList wl;
+		ArrayList<WordList> listLetter = new ArrayList<WordList>();
+		char charLetter;
+		WordList letter;
 
 
-        switch (refi){
-            case 0:
+        if (refi < 2){
 
-                for (int i = 0; i < strText.length(); i++){
-                    letter = strText.charAt(i);
-                    wl = new WordList(letter,null, null);
+            for (int position = 0; position < strText.length(); position++){
 
-                    if (!wl.contiene(al)){
-                        al.add(wl);
-                    }
+                charLetter = strText.charAt(position);
+
+                letter = new WordList(charLetter,new ArrayList<Integer>(), null);
+
+                letter.addPosition(position);
+
+                if (!letter.belongs(listLetter,position)){
+
+                    listLetter.add(letter);
                 }
 
-            case 1:
-
-
-            default:
-
-
+            }
+        }else{
+            // TODO Creacion de la lista de manera recursiva
         }
 
-
-		return  al;
+		return  listLetter;
 	}
 
-    private boolean contiene(ArrayList<WordList> al){
-        for (int i = 0; i<al.size(); i++){
-            if (al.get(i).getLetter() == this.getLetter()){
+    private boolean belongs(ArrayList<WordList> arrayList,int position){
+        for (int i = 0; i<arrayList.size(); i++){
+            if ( this.getLetter() == arrayList.get(i).getLetter()){
+                arrayList.get(i).addPosition(position);
                 return true;
             }
         }
