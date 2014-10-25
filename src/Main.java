@@ -19,7 +19,7 @@ public class Main {
     private static Scanner sc;
 
     /**
-	 * @param args
+	 * @param args Argumento necesario para el metodo main
 	 */
 	public static void main(String[] args) {
 
