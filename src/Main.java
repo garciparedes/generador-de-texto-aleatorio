@@ -19,7 +19,7 @@ public class Main {
     private static Scanner sc;
 
     /**
-	 * @param args Argumento necesario para el metodo main
+	 * @param args
 	 */
 	public static void main(String[] args) {
 
@@ -58,7 +58,7 @@ public class Main {
             sc = new Scanner(System.in);
             int n = sc.nextInt();
 
-            if (n < 0) {
+            if (n< 0) {
             		return writeInt(message, errorMessage);
             	}
 

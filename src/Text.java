@@ -82,11 +82,11 @@ public class Text {
 
 
         for (int i = 0; i<al.size();i++){
-            System.out.println(al.get(i).getLetter() +"    " + al.get(i).getPositions().size());
-
+            System.out.println(al.get(i).getLetter());
         }
 
-        //TODO esto es provisional de momento
+
+
 
         int a;
         while (lenght > 0 ){
@@ -95,6 +95,9 @@ public class Text {
             strText.append(al.get(a).getLetter());
             lenght--;
         }
+
+        //Provisional
+
 		return strText;
 	}
 

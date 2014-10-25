@@ -67,57 +67,40 @@ public class WordList {
         return wordLists;
     }
 
-
-    public void addPosition(Integer position){
-        this.positions.add(position);
-
-    }
-
 	public static ArrayList<WordList> newInstance(Text text, int refi){
 		StringBuilder strText = text.getText();
-		ArrayList<WordList> listLetter = new ArrayList<WordList>();
-		char charLetter;
-		WordList letter;
+		ArrayList<WordList> al = new ArrayList<WordList>();
+		char letter;
+		WordList wl;
 
 
-        if (refi < 2){
+        switch (refi){
+            case 0:
 
-<<<<<<< HEAD
                 for (int i = 0; i < strText.length(); i++){
-<<<<<<< Updated upstream
                     letter = strText.charAt(i);
                     wl = new WordList(letter,null, null);
-=======
-                    str = String.valueOf(strText.charAt(i));
-                    wl = new WordList(str, null, null);
->>>>>>> Stashed changes
-=======
-            for (int position = 0; position < strText.length(); position++){
->>>>>>> FETCH_HEAD
 
-                charLetter = strText.charAt(position);
-
-                letter = new WordList(charLetter,new ArrayList<Integer>(), null);
-
-                letter.addPosition(position);
-
-                if (!letter.belongs(listLetter,position)){
-
-                    listLetter.add(letter);
+                    if (!wl.contiene(al)){
+                        al.add(wl);
+                    }
                 }
 
-            }
-        }else{
-            // TODO Creacion de la lista de manera recursiva
+            case 1:
+
+
+            default:
+
+
         }
 
-		return  listLetter;
+
+		return  al;
 	}
 
-    private boolean belongs(ArrayList<WordList> arrayList,int position){
-        for (int i = 0; i<arrayList.size(); i++){
-            if ( this.getLetter() == arrayList.get(i).getLetter()){
-                arrayList.get(i).addPosition(position);
+    private boolean contiene(ArrayList<WordList> al){
+        for (int i = 0; i<al.size(); i++){
+            if (al.get(i).getLetter() == this.getLetter()){
                 return true;
             }
         }
