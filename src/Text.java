@@ -82,6 +82,7 @@ public class Text {
         //Pinta los distintos niveles de profundidad de la lista
         
         for (int i = 0; i<al.size();i++){
+<<<<<<< HEAD
             System.out.println(al.get(i).getLetter()+"    " + al.get(i).getPositions().size());
         }
 
@@ -113,6 +114,11 @@ public class Text {
             System.out.println(al.get(1).getWordLists().get(1).getWordLists().get(1).getWordLists().get(i).getLetter() +"    " + al.get(1).getWordLists().get(1).getWordLists().get(1).getWordLists().get(i).getPositions().size());
 
         }
+=======
+            System.out.println(al.get(i).getLetter());
+        }
+
+>>>>>>> FETCH_HEAD
 
 
 

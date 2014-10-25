@@ -58,6 +58,7 @@ public class WordList {
         return wordLists;
     }
 
+<<<<<<< HEAD
 
     /**
      * El método newInstance genera un ArrayList formado por objetos WordList
@@ -70,6 +71,13 @@ public class WordList {
 		ArrayList<WordList> listLetter = new ArrayList<WordList>();
 		char charLetter;
 		WordList letter;
+=======
+	public static ArrayList<WordList> newInstance(Text text, int refi){
+		StringBuilder strText = text.getText();
+		ArrayList<WordList> al = new ArrayList<WordList>();
+		char letter;
+		WordList wl;
+>>>>>>> FETCH_HEAD
 
         //Genera el primer nivel del arbol
         for (int position = 0; position < strText.length(); position++){
@@ -80,6 +88,7 @@ public class WordList {
             }
         }
 
+<<<<<<< HEAD
         //Genera los n siguientes niveles
         for(int i = 0; i < listLetter.size(); i++)
             listLetter.get(i).addLetter(strText, refi -1);
@@ -134,13 +143,45 @@ public class WordList {
                 }
 
             } catch (StringIndexOutOfBoundsException e){}
+=======
+        switch (refi){
+            case 0:
+
+                for (int i = 0; i < strText.length(); i++){
+                    letter = strText.charAt(i);
+                    wl = new WordList(letter,null, null);
+
+                    if (!wl.contiene(al)){
+                        al.add(wl);
+                    }
+                }
+
+            case 1:
+
+
+            default:
+
+
+>>>>>>> FETCH_HEAD
         }
         if (refi > 0){
 
             for(int i = 0; i < listLetter.size(); i++)
                 listLetter.get(i).addLetter(strText, refi -1);
 
+<<<<<<< HEAD
 
+=======
+
+		return  al;
+	}
+
+    private boolean contiene(ArrayList<WordList> al){
+        for (int i = 0; i<al.size(); i++){
+            if (al.get(i).getLetter() == this.getLetter()){
+                return true;
+            }
+>>>>>>> FETCH_HEAD
         }
     }
 }
