@@ -83,7 +83,6 @@ public class WordList {
         if (refi < 2){
 
 <<<<<<< HEAD
-<<<<<<< HEAD
                 for (int i = 0; i < strText.length(); i++){
 <<<<<<< Updated upstream
                     letter = strText.charAt(i);
@@ -92,9 +91,6 @@ public class WordList {
                     str = String.valueOf(strText.charAt(i));
                     wl = new WordList(str, null, null);
 >>>>>>> Stashed changes
-=======
-            for (int position = 0; position < strText.length(); position++){
->>>>>>> FETCH_HEAD
 =======
             for (int position = 0; position < strText.length(); position++){
 >>>>>>> FETCH_HEAD
