@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 /**
  *
- * Created by garciparedes on 11/10/14.
+ * @author segarci & albamig
  */
 public class Text {
 
@@ -54,7 +54,6 @@ public class Text {
             fileName = Main.writeString(Main.INTRODUCE_TEXTO);
             text = readFile(fileName);
 
-
         }finally{
             // En el finally cerramos el fichero, para asegurarnos
             // que se cierra tanto si todo va bien como si salta
@@ -67,7 +66,6 @@ public class Text {
                 e2.printStackTrace();
             }
         }
-
         return textBuilder;
     }
 
@@ -75,18 +73,48 @@ public class Text {
 	//genera un texto aleatorio a partir de los parametros que se le manda
 	private StringBuilder genText(Text oriText, int refi, int lenght){
 
-		StringBuilder strText = new StringBuilder();
+        StringBuilder strText = new StringBuilder();
+        StringBuilder strOriText = oriText.getText();
 
-		ArrayList<WordList> al = WordList.newInstance(oriText,refi);
+		ArrayList<WordList> al = WordList.newInstance(strOriText,refi);
 
 
-
+        //Pinta los distintos niveles de profundidad de la lista
+        
         for (int i = 0; i<al.size();i++){
-            System.out.println(al.get(i).getLetter() +"    " + al.get(i).getPositions().size());
+            System.out.println(al.get(i).getLetter()+"    " + al.get(i).getPositions().size());
+        }
+
+
+        System.out.println();
+        System.out.println();
+
+
+        for (int i = 0; i<al.get(1).getWordLists().size();i++){
+            System.out.println(al.get(1).getWordLists().get(i).getLetter() +"    " + al.get(1).getWordLists().get(i).getPositions().size());
 
         }
 
-        //TODO esto es provisional de momento
+
+        System.out.println();
+        System.out.println();
+
+
+        for (int i = 0; i<al.get(1).getWordLists().get(1).getWordLists().size();i++){
+            System.out.println(al.get(1).getWordLists().get(1).getWordLists().get(i).getLetter() +"    " + al.get(1).getWordLists().get(1).getWordLists().get(i).getPositions().size());
+
+        }
+
+        System.out.println();
+        System.out.println();
+
+
+        for (int i = 0; i<al.get(1).getWordLists().get(1).getWordLists().get(1).getWordLists().size();i++){
+            System.out.println(al.get(1).getWordLists().get(1).getWordLists().get(1).getWordLists().get(i).getLetter() +"    " + al.get(1).getWordLists().get(1).getWordLists().get(1).getWordLists().get(i).getPositions().size());
+
+        }
+
+
 
         int a;
         while (lenght > 0 ){
@@ -95,6 +123,9 @@ public class Text {
             strText.append(al.get(a).getLetter());
             lenght--;
         }
+
+        //Provisional
+
 		return strText;
 	}
 
