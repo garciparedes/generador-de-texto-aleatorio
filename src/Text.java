@@ -9,21 +9,10 @@ import java.util.ArrayList;
  */
 public class Text {
 
-    private final String ERROR_FICHERO = "Error: Fichero no encontrado";
-    private final String ROUTE = "texts/";
-
-    private File file;
-    private FileReader fr;
-    private BufferedReader br;
 	private StringBuilder text;
 
-	//Constructor que crea el texto desde fichero
-	public Text(String fileName){
-		this.text = readFile(fileName);
-	}
-
 	//Constructor que crea el objeto texto a partir de otro anterior
-	public Text(Text oriText, int refi, int lenght){
+	public Text(StringBuilder oriText, int refi, int lenght){
 		this.text = genText(oriText, refi, lenght);
 	}
 
@@ -31,9 +20,16 @@ public class Text {
 		return text;
 	}
 
-	//Lee desde fichero y genera el texto con el contenido que hay en él
-	private StringBuilder readFile(String fileName){
-        StringBuilder textBuilder = new StringBuilder();
+	//Lee desde fichero y genera el texto con el contenido que hay en ��l
+	public static StringBuilder readFile(String fileName){
+		final String ERROR_FICHERO = "Error: Fichero no encontrado";
+	    final String ROUTE = "texts/";
+	    
+	    File file;
+	    FileReader fr;
+	    BufferedReader br;
+        
+	    StringBuilder textBuilder = new StringBuilder();
 
         try {
             // Apertura del fichero y creacion de BufferedReader para poder
@@ -52,7 +48,7 @@ public class Text {
         }catch(Exception FileNotFoundException){
             System.out.println(ERROR_FICHERO);
             fileName = Main.writeString(Main.INTRODUCE_TEXTO);
-            text = readFile(fileName);
+            Text.readFile(fileName);
 
         }finally{
             // En el finally cerramos el fichero, para asegurarnos
@@ -71,12 +67,11 @@ public class Text {
 
 
 	//genera un texto aleatorio a partir de los parametros que se le manda
-	private StringBuilder genText(Text oriText, int refi, int lenght){
+	private StringBuilder genText(StringBuilder oriText, int refi, int lenght){
 
         StringBuilder strText = new StringBuilder();
-        StringBuilder strOriText = oriText.getText();
 
-		ArrayList<WordList> al = WordList.newInstance(strOriText,refi);
+		ArrayList<WordList> al = WordList.newInstance(oriText,refi);
 
 
         //Pinta los distintos niveles de profundidad de la lista

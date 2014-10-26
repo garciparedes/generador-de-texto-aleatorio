@@ -34,11 +34,8 @@ public class Main {
         //Leemos el nombre de fichero
         String fileName = writeString(INTRODUCE_TEXTO);
 
-		//Creamos el objeto para el antiguo texto
-		Text text = new Text(fileName);
-
 		//Creamos el objeto para el nuevo texto
-		Text finalText = new Text(text, textRefi, textLength);
+		Text finalText = new Text(Text.readFile(fileName), textRefi, textLength);
 
 		//Imprimimos el resultado en pantalla
         System.out.println(finalText.getText());
