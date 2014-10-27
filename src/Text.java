@@ -26,7 +26,7 @@ public class Text {
 	    final String ROUTE = "texts/";
 	    
 	    File file;
-	    FileReader fr;
+	    FileReader fr = null;
 	    BufferedReader br;
         
 	    StringBuilder textBuilder = new StringBuilder();
@@ -75,39 +75,13 @@ public class Text {
 
 
         //Pinta los distintos niveles de profundidad de la lista
-        
-        for (int i = 0; i<al.size();i++){
-            System.out.println(al.get(i).getLetter()+"    " + al.get(i).getPositions().size());
+
+        for (WordList anAl : al) {
+            System.out.println(anAl.getLetter() + "    " + anAl.getPositions().size());
         }
 
 
-        System.out.println();
-        System.out.println();
 
-
-        for (int i = 0; i<al.get(1).getWordLists().size();i++){
-            System.out.println(al.get(1).getWordLists().get(i).getLetter() +"    " + al.get(1).getWordLists().get(i).getPositions().size());
-
-        }
-
-
-        System.out.println();
-        System.out.println();
-
-
-        for (int i = 0; i<al.get(1).getWordLists().get(1).getWordLists().size();i++){
-            System.out.println(al.get(1).getWordLists().get(1).getWordLists().get(i).getLetter() +"    " + al.get(1).getWordLists().get(1).getWordLists().get(i).getPositions().size());
-
-        }
-
-        System.out.println();
-        System.out.println();
-
-
-        for (int i = 0; i<al.get(1).getWordLists().get(1).getWordLists().get(1).getWordLists().size();i++){
-            System.out.println(al.get(1).getWordLists().get(1).getWordLists().get(1).getWordLists().get(i).getLetter() +"    " + al.get(1).getWordLists().get(1).getWordLists().get(1).getWordLists().get(i).getPositions().size());
-
-        }
 
 
 
