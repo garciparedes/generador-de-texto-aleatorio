@@ -12,6 +12,7 @@ public class WordList {
 	private char letter;
 	private ArrayList<Integer> positions;
 	private ArrayList<WordList> wordLists;
+<<<<<<< HEAD
 
     /**
      * Constructor de la clase WordList
@@ -19,6 +20,19 @@ public class WordList {
      * @param letter caracter al que representa el objeto
      * @param positions lista que contiene las posiciones en las que se encuentra el texto
      * @param wordLists caracteres que le siguen en el texto
+=======
+	private int numWords;
+	
+	public WordList(String word, ArrayList<Integer> positions, ArrayList<WordList> wordLists, int numwords){
+		this.word = word;
+		this.positions = positions;
+		this.wordLists = wordLists;
+		this.numWords = numwords;
+	}
+	
+    /**
+     * @param word caracter al que representa el objeto
+>>>>>>> FETCH_HEAD
      */
 	public WordList(char letter, ArrayList<Integer> positions, ArrayList<WordList> wordLists){
 		this.letter = letter;
@@ -27,16 +41,24 @@ public class WordList {
 	}
 
     /**
+<<<<<<< HEAD
      * Setter de wordLists
      * @param wordLists Lista de caracteres que siguen al caracter objeto
+=======
+     * @param positions posiciones del texto fuente en que se encuentra el caracter
+>>>>>>> FETCH_HEAD
      */
     private void setWordLists(ArrayList<WordList> wordLists) {
         this.wordLists = wordLists;
     }
 
     /**
+<<<<<<< HEAD
      * Getter de letter
      * @return letter
+=======
+     * @param wordLists 
+>>>>>>> FETCH_HEAD
      */
     public char getLetter() {
         return letter;
@@ -62,9 +84,13 @@ public class WordList {
     /**
      * El método newInstance genera un ArrayList formado por objetos WordList
      *
+<<<<<<< HEAD
      * @param strText Texto a partir del cual se generara el arbol
      * @param refi Nivel de profundidad que tendra el arbol
      * @return listLetter un ArrayList<WordList>
+=======
+     * @return 
+>>>>>>> FETCH_HEAD
      */
 	public static ArrayList<WordList> newInstance(StringBuilder strText, int refi){
 		ArrayList<WordList> listLetter = new ArrayList<WordList>();

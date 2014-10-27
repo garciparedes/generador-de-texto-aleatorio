@@ -1,5 +1,9 @@
 /bin
 /.idea
 *.iml
+<<<<<<< HEAD
 doc/*
 /.settings
+=======
+doc/*
+>>>>>>> FETCH_HEAD
