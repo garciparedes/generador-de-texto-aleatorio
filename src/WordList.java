@@ -32,6 +32,9 @@ public class WordList {
 	
     /**
      * @param word caracter al que representa el objeto
+<<<<<<< HEAD
+>>>>>>> FETCH_HEAD
+=======
 >>>>>>> FETCH_HEAD
      */
 	public WordList(char letter, ArrayList<Integer> positions, ArrayList<WordList> wordLists){
@@ -42,8 +45,12 @@ public class WordList {
 
     /**
 <<<<<<< HEAD
+<<<<<<< HEAD
      * Setter de wordLists
      * @param wordLists Lista de caracteres que siguen al caracter objeto
+=======
+     * @param positions posiciones del texto fuente en que se encuentra el caracter
+>>>>>>> FETCH_HEAD
 =======
      * @param positions posiciones del texto fuente en que se encuentra el caracter
 >>>>>>> FETCH_HEAD
@@ -54,8 +61,12 @@ public class WordList {
 
     /**
 <<<<<<< HEAD
+<<<<<<< HEAD
      * Getter de letter
      * @return letter
+=======
+     * @param wordLists 
+>>>>>>> FETCH_HEAD
 =======
      * @param wordLists 
 >>>>>>> FETCH_HEAD
@@ -85,9 +96,13 @@ public class WordList {
      * El método newInstance genera un ArrayList formado por objetos WordList
      *
 <<<<<<< HEAD
+<<<<<<< HEAD
      * @param strText Texto a partir del cual se generara el arbol
      * @param refi Nivel de profundidad que tendra el arbol
      * @return listLetter un ArrayList<WordList>
+=======
+     * @return 
+>>>>>>> FETCH_HEAD
 =======
      * @return 
 >>>>>>> FETCH_HEAD

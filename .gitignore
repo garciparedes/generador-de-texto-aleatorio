@@ -2,8 +2,12 @@
 /.idea
 *.iml
 <<<<<<< HEAD
+<<<<<<< HEAD
 doc/*
 /.settings
+=======
+doc/*
+>>>>>>> FETCH_HEAD
 =======
 doc/*
 >>>>>>> FETCH_HEAD
