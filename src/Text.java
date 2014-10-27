@@ -1,22 +1,36 @@
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.util.ArrayList;
 
 /**
  *
- * Created by garciparedes on 11/10/14.
+ * @author segarci & albamig
  */
 public class Text {
 
-    private final String ERROR_FICHERO = "Error: Fichero no encontrado";
-    private final String ROUTE = "texts/";
+	private StringBuilder text;
 
-    private File file;
-    private FileReader fr;
-    private BufferedReader br;
+	//Constructor que crea el objeto texto a partir de otro anterior
+	public Text(StringBuilder oriText, int refi, int lenght){
+		this.text = genText(oriText, refi, lenght);
+	}
 
-    public String readFile(String fileName){
-        String text;
+	public StringBuilder getText(){
+		return text;
+	}
+
+	//Lee desde fichero y genera el texto con el contenido que hay en ��l
+	public static StringBuilder readFile(String fileName){
+		final String ERROR_FICHERO = "Error: Fichero no encontrado";
+	    final String ROUTE = "texts/";
+	    
+	    File file;
+	    FileReader fr = null;
+	    BufferedReader br;
+        
+	    StringBuilder textBuilder = new StringBuilder();
+
         try {
             // Apertura del fichero y creacion de BufferedReader para poder
             // hacer una lectura comoda (disponer del metodo readLine()).
@@ -27,17 +41,14 @@ public class Text {
 
             // Lectura del fichero
             String linea;
-            String textBuffer = "";
             while((linea=br.readLine())!=null) {
-                textBuffer = textBuffer + linea;
+                textBuilder.append(linea);
             }
-            text = textBuffer;
 
         }catch(Exception FileNotFoundException){
             System.out.println(ERROR_FICHERO);
             fileName = Main.writeString(Main.INTRODUCE_TEXTO);
-            text = readFile(fileName);
-
+            Text.readFile(fileName);
 
         }finally{
             // En el finally cerramos el fichero, para asegurarnos
@@ -51,9 +62,40 @@ public class Text {
                 e2.printStackTrace();
             }
         }
-
-        return text;
+        return textBuilder;
     }
 
+
+	//genera un texto aleatorio a partir de los parametros que se le manda
+	private StringBuilder genText(StringBuilder oriText, int refi, int lenght){
+
+        StringBuilder strText = new StringBuilder();
+
+		ArrayList<WordList> al = WordList.newInstance(oriText,refi);
+
+
+        //Pinta los distintos niveles de profundidad de la lista
+
+        for (WordList anAl : al) {
+            System.out.println(anAl.getLetter() + "    " + anAl.getPositions().size());
+        }
+
+
+
+
+
+
+        int a;
+        while (lenght > 0 ){
+            a = (int)(Math.random() * al.size());
+
+            strText.append(al.get(a).getLetter());
+            lenght--;
+        }
+
+        //Provisional
+
+		return strText;
+	}
 
 }
