@@ -80,6 +80,17 @@ public class Text {
             System.out.println(anAl.getLetter() + "    " + anAl.getPositions().size());
         }
 
+        System.out.println();
+
+
+        for (WordList anAl : al.get(1).getWordLists()) {
+            System.out.println(anAl.getLetter()
+                            + "    "
+                            //+ anAl.getPositions().size()
+            );
+        }
+
+
 
 
 

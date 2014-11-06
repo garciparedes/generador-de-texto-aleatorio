@@ -1,13 +1,11 @@
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 /**
  * @author segarci & albamig
  */
 
-/**
- * @author segarci & albamig
- *
- */
 public class WordList {
 	private char letter;
 	private ArrayList<Integer> positions;
@@ -33,6 +31,13 @@ public class WordList {
     private void setWordLists(ArrayList<WordList> wordLists) {
         this.wordLists = wordLists;
     }
+
+    private void setPositions(ArrayList<Integer> positions) {
+        this.positions = positions;
+    }
+
+
+
 
     /**
      * Getter de letter
@@ -68,21 +73,32 @@ public class WordList {
      */
 	public static ArrayList<WordList> newInstance(StringBuilder strText, int refi){
 		ArrayList<WordList> listLetter = new ArrayList<WordList>();
+        ArrayList<WordList> oriListLetter = new ArrayList<WordList>();
 		char charLetter;
 		WordList letter;
+        WordList letter2;
 
         //Genera el primer nivel del arbol
         for (int position = 0; position < strText.length(); position++){
             charLetter = strText.charAt(position);
             letter = new WordList(charLetter,new ArrayList<Integer>(), null);
+            letter2 = new WordList(charLetter,null, null);
+
+
             if (!letter.belongs(listLetter,position)){
                 listLetter.add(letter);
+                oriListLetter.add(letter2);
             }
         }
 
+        for (WordList ori : oriListLetter)
+            System.out.println(ori.getLetter());
+
         //Genera los n siguientes niveles
         for(int i = 0; i < listLetter.size(); i++)
-            listLetter.get(i).addLetter(strText, refi -1);
+            listLetter.get(i).addLetter(strText, refi -1,(ArrayList<WordList>) oriListLetter.clone());
+
+
 
 		return  listLetter;
 	}
@@ -114,11 +130,12 @@ public class WordList {
      * @param strText Texto a partir del cual se generara el arbol
      * @param refi Nivel de profundidad que tendra el arbol
      */
-    private void addLetter(StringBuilder strText, int refi){
+    private void addLetter(StringBuilder strText, int refi, ArrayList<WordList> orilist){
 
         char charLetter;
         WordList letter;
         ArrayList<WordList> listLetter =  new ArrayList<WordList>();
+
         this.setWordLists(listLetter);
 
         for (int a = 0; a < this.getPositions().size(); a++) {
@@ -133,12 +150,14 @@ public class WordList {
                 }
 
 
+
+
             } catch (StringIndexOutOfBoundsException e){}
         }
         if (refi > 0){
 
             for(int i = 0; i < listLetter.size(); i++)
-                listLetter.get(i).addLetter(strText, refi -1);
+                listLetter.get(i).addLetter(strText, refi -1, (ArrayList<WordList>) orilist.clone());
 
 
         }
