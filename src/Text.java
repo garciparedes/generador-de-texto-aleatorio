@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -71,32 +72,35 @@ public class Text {
 
         StringBuilder strText = new StringBuilder();
 
+        Date principio = new Date();
 		ArrayList<WordList> al = WordList.newInstance(oriText,refi);
+        Date despues = new Date();
 
+        System.out.println((principio.getTime()-despues.getTime())/1000);
 
         //Pinta los distintos niveles de profundidad de la lista
+
+
 
         for (WordList anAl : al) {
             System.out.println(anAl.getLetter() + "    " + anAl.getPositions().size());
         }
 
-        System.out.println();
+        /*
+        System.out.println(al.get(2).getWordLists().get(0).getPositions().toString());
 
-        System.out.println();
+        System.out.println(al.get(2).getWordLists().get(0).getWordLists().get(1).getPositions().toString());
+
+        for (WordList anAl : al.get(2).getWordLists().get(0).getWordLists()) {
+            try {
 
 
-        for (WordList anAl : al.get(1).getWordLists()) {
-            System.out.println(anAl.getLetter() + "    " + anAl.getPositions().size());
+                System.out.println(anAl.getLetter() + "    " + anAl.getPositions().size());
+            } catch (NullPointerException e){
+                System.out.println("-");
+            }
         }
-
-        System.out.println();
-
-        System.out.println();
-
-
-        for (WordList anAl : al.get(1).getWordLists().get(1).getWordLists()) {
-            System.out.println(anAl.getLetter() + "    " + anAl.getPositions().size());
-        }
+        */
 
 
         int a;

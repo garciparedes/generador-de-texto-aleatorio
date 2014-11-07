@@ -86,7 +86,6 @@ public class WordList implements Cloneable{
             charLetter = strText.charAt(position);
             letter = new WordList(charLetter,new ArrayList<Integer>(), null);
 
-
             if (!letter.belongs(listLetter,position)){
                 listLetter.add(letter);
             }
@@ -96,7 +95,7 @@ public class WordList implements Cloneable{
 
             //Genera los n siguientes niveles
             for(int i = 0; i < listLetter.size(); i++)
-                listLetter.get(i).addLetter(strText, refi -1, listLetter);
+                listLetter.get(i).addLetter(strText, refi -1, WordList.cloneList(listLetter));
         }
 
 
@@ -132,14 +131,9 @@ public class WordList implements Cloneable{
      * @param strText Texto a partir del cual se generara el arbol
      * @param refi Nivel de profundidad que tendra el arbol
      */
-    private void addLetter(StringBuilder strText, int refi, ArrayList<WordList> list){
+    private void addLetter(StringBuilder strText, int refi, ArrayList<WordList> listLetter) {
 
         char charLetter;
-        ArrayList<WordList> listLetter =  WordList.cloneList(list);
-
-        for (WordList item: listLetter)
-            item.setPositions(new ArrayList<Integer>());
-
 
         this.setWordLists(listLetter);
 
@@ -159,20 +153,40 @@ public class WordList implements Cloneable{
 
         if (refi > 0){
 
-            for(int i = 0; i < listLetter.size(); i++)
-                listLetter.get(i).addLetter(strText, refi -1, listLetter);
+            for(int i = 0; i < listLetter.size(); i++) {
+                try {
+                    listLetter.get(i).addLetter(strText, refi - 1, WordList.cloneList(listLetter));
 
+
+                } catch (NullPointerException ignore){}
+            }
         }
     }
 
     public static ArrayList<WordList> cloneList(ArrayList<WordList> list) {
         ArrayList<WordList> clone = new ArrayList<WordList>(list.size());
-        for(WordList item: list)
-            try {
-                clone.add((WordList) item.clone());
-            } catch (CloneNotSupportedException e) {
-                e.printStackTrace();
+        WordList wordList;
+        for(WordList item: list) {
+
+            /*
+            if (item.getPositions().isEmpty()){
+                clone.add(null);
+            } else {
+            */
+                try {
+                    wordList = ((WordList) item.clone());
+                    wordList.setPositions(new ArrayList<Integer>());
+
+                    clone.add(wordList);
+
+                } catch (CloneNotSupportedException e) {
+                    e.printStackTrace();
+                }
+
+            /*
             }
+             */
+        }
         return clone;
     }
 }
