@@ -1,3 +1,4 @@
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -90,6 +91,7 @@ public class WordList implements Cloneable{
                 listLetter.add(letter);
             }
         }
+        /*
 
         if (refi > 1){
 
@@ -98,8 +100,22 @@ public class WordList implements Cloneable{
                 listLetter.get(i).addLetter(strText, refi -1, WordList.cloneList(listLetter));
         }
 
+        */
+        while (refi > 0){
+
+            System.out.println("Hola");
+            for(int i = 0; i < listLetter.size(); i++) {
+
+                try {
+                    System.out.println("Hola");
+
+                    listLetter.get(i).addLetter(strText, refi - 1, WordList.cloneList(listLetter));
 
 
+                } catch (NullPointerException ignore){}
+            }
+            refi--;
+        }
 
 		return  listLetter;
 	}
@@ -151,16 +167,7 @@ public class WordList implements Cloneable{
             } catch (StringIndexOutOfBoundsException e){}
         }
 
-        if (refi > 0){
 
-            for(int i = 0; i < listLetter.size(); i++) {
-                try {
-                    listLetter.get(i).addLetter(strText, refi - 1, WordList.cloneList(listLetter));
-
-
-                } catch (NullPointerException ignore){}
-            }
-        }
     }
 
     public static ArrayList<WordList> cloneList(ArrayList<WordList> list) {
@@ -168,11 +175,11 @@ public class WordList implements Cloneable{
         WordList wordList;
         for(WordList item: list) {
 
-            /*
+
             if (item.getPositions().isEmpty()){
                 clone.add(null);
             } else {
-            */
+
                 try {
                     wordList = ((WordList) item.clone());
                     wordList.setPositions(new ArrayList<Integer>());
@@ -183,9 +190,9 @@ public class WordList implements Cloneable{
                     e.printStackTrace();
                 }
 
-            /*
+
             }
-             */
+
         }
         return clone;
     }

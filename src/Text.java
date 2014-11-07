@@ -1,8 +1,10 @@
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  *
@@ -73,36 +75,31 @@ public class Text {
         StringBuilder strText = new StringBuilder();
 
         Date principio = new Date();
-		ArrayList<WordList> al = WordList.newInstance(oriText,refi);
+		HashMap<Character, WordHashMap> wordHashHashMap = WordHashMap.newInstance(oriText, refi);
         Date despues = new Date();
 
-        System.out.println((principio.getTime()-despues.getTime())/1000);
+        System.out.println((double) (despues.getTime()-principio.getTime())/1000);
 
         //Pinta los distintos niveles de profundidad de la lista
 
 
 
-        for (WordList anAl : al) {
-            System.out.println(anAl.getLetter() + "    " + anAl.getPositions().size());
+        for (Map.Entry<Character, WordHashMap> entry : wordHashHashMap.entrySet())
+        {
+            System.out.println(entry.getKey()
+                    + "  =  "
+                    + entry.getValue()
+                            .getPositionList().size()
+            );
         }
+
+        for (Map.Entry<Character, WordHashMap> entry : WordHashMap.getDefaultHashList().entrySet())
+        {
+            System.out.println(entry.getKey());
+        }
+
 
         /*
-        System.out.println(al.get(2).getWordLists().get(0).getPositions().toString());
-
-        System.out.println(al.get(2).getWordLists().get(0).getWordLists().get(1).getPositions().toString());
-
-        for (WordList anAl : al.get(2).getWordLists().get(0).getWordLists()) {
-            try {
-
-
-                System.out.println(anAl.getLetter() + "    " + anAl.getPositions().size());
-            } catch (NullPointerException e){
-                System.out.println("-");
-            }
-        }
-        */
-
-
         int a;
         while (lenght > 0 ){
             a = (int)(Math.random() * al.size());
@@ -110,6 +107,7 @@ public class Text {
             strText.append(al.get(a).getLetter());
             lenght--;
         }
+        */
 
         //Provisional
 
