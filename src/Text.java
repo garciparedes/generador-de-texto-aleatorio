@@ -73,7 +73,6 @@ public class Text {
 
         Date principio = new Date();
 		HashMap<Character, WordHashMap> wordHashHashMap = WordHashMap.newInstance(oriText, refi);
-        //ArrayList<WordList> arrayList = WordList.newInstance(oriText,refi);
         Date despues = new Date();
 
         System.out.println((double) (despues.getTime()-principio.getTime())/1000);

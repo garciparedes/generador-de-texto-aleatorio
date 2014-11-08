@@ -5,7 +5,7 @@ import java.util.Map;
 /**
  * Created by garciparedes on 7/11/14.
  */
-public class WordHashMap implements Cloneable {
+public class WordHashMap {
     private ArrayList<Integer> positionList;
     private HashMap<Character, WordHashMap> hashList;
     private static HashMap<Character, WordHashMap> defaultHashList = new HashMap<Character, WordHashMap>();
@@ -14,11 +14,6 @@ public class WordHashMap implements Cloneable {
     public WordHashMap(ArrayList<Integer> newPositionList, HashMap<Character, WordHashMap> newHashList) {
         this.positionList = newPositionList;
         this.hashList = newHashList;
-    }
-
-    @Override
-    protected Object clone() throws CloneNotSupportedException {
-        return super.clone();
     }
 
     public static HashMap<Character, WordHashMap> getDefaultHashList() {
@@ -41,9 +36,6 @@ public class WordHashMap implements Cloneable {
     }
     public HashMap<Character, WordHashMap> getHashList() {
         return hashList;
-    }
-    public void setPositionList(ArrayList<Integer> positionList) {
-        this.positionList = positionList;
     }
     public void setHashList(HashMap<Character, WordHashMap> hashList) {
         this.hashList = hashList;
@@ -81,14 +73,13 @@ public class WordHashMap implements Cloneable {
                 entry.getValue().addLevel(refi-1, strText, entry.getKey());
             }
 
-            //newHashList.get('S').addLevel(refi,strText, 'S');
-            //newHashList.get('e').addLevel(refi,strText, 'e');
-
             int a = 0;
 
-            for (Map.Entry<Character, WordHashMap> entry : newHashList.get('e').getHashList().get(' ').getHashList().entrySet())
+            for (Map.Entry<Character, WordHashMap> entry : newHashList.get('e').getHashList()
+                    .get(' ').getHashList()
+                    .get('l').getHashList()
+                    .entrySet())
             {
-                //entry.getValue().addLevel(refi,strText, entry.getKey());
 
                 System.out.println(entry.getKey()
                                 + "  =  "
@@ -106,18 +97,15 @@ public class WordHashMap implements Cloneable {
     public void addLevel(int refi, StringBuilder stringBuilder, char key){
         HashMap<Character, WordHashMap> newHashMap = getDefaultHashList();
         char charLetter;
-        this.setHashList((HashMap<Character, WordHashMap>) newHashMap.clone());
+        this.setHashList(newHashMap);
 
 
         for (int i = 0 ; i < this.getPositionList().size() ; i++){
             try {
 
-                //charLetter = stringBuilder.charAt(this.getPositionList().get(i)+1);
                 charLetter = stringBuilder.charAt(this.getPositionList().get(i)+1);
 
                 this.getHashList().get(charLetter).getPositionList().add(this.getPositionList().get(i) + 1);
-                //this.getHashList().get(charLetter).getPositionList()
-                //newHashMap.get(charLetter).getPositionList().add(this.getPositionList().get(i) + 1);
 
             } catch (StringIndexOutOfBoundsException ignored){}
 
