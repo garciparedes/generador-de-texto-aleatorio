@@ -18,16 +18,18 @@ public class WordHashMap {
 
     public static HashMap<Character, WordHashMap> getDefaultHashList() {
 
-
         HashMap<Character, WordHashMap> clone = new HashMap<Character, WordHashMap>();
-
 
         for (Map.Entry<Character, WordHashMap> entry : defaultHashList.entrySet())
         {
-            clone.put(entry.getKey(),new WordHashMap(new ArrayList<Integer>(), null));
+            /*
+            Para quitar toda optimizacion aqui se deberia generar el valor,
+            es decir: new WordHashMap(new ArrayList<Integer>(), null)
+            en vez de solo en el caso de que estuviera en el texto (linea 120)
+             */
+            clone.put(entry.getKey(),null);
 
         }
-
 
         return clone;
     }
@@ -66,31 +68,37 @@ public class WordHashMap {
 
         if (refi > 1) {
 
-
-
             for (Map.Entry<Character, WordHashMap> entry : newHashList.entrySet())
             {
                 entry.getValue().addLevel(refi-1, strText, entry.getKey());
             }
 
-            int a = 0;
+        }
+        int a = 0;
 
-            for (Map.Entry<Character, WordHashMap> entry : newHashList.get('e').getHashList()
-                    .get(' ').getHashList()
-                    .get('l').getHashList()
-                    .entrySet())
-            {
+        for (Map.Entry<Character, WordHashMap> entry : newHashList.get('e').getHashList()
+                .get(' ').getHashList()
+                .get('l').getHashList()
+                .entrySet())
+        {
 
+            if (entry.getValue() != null){
                 System.out.println(entry.getKey()
                                 + "  =  "
-                                + entry.getValue().getPositionList().size()
+                        + entry.getValue().getPositionList().size()
 
                 );
                 a = a+ entry.getValue().getPositionList().size();
-
+            } else {
+                System.out.println(entry.getKey()
+                        + "  =  0"
+                );
             }
-            System.out.println(a);
+
+
         }
+        System.out.println(a);
+
         return newHashList;
     }
 
@@ -105,6 +113,10 @@ public class WordHashMap {
 
                 charLetter = stringBuilder.charAt(this.getPositionList().get(i)+1);
 
+                if(newHashMap.get(charLetter) == null){
+                    newHashMap.put(charLetter,new WordHashMap(new ArrayList<Integer>(), null));
+                }
+
                 this.getHashList().get(charLetter).getPositionList().add(this.getPositionList().get(i) + 1);
 
             } catch (StringIndexOutOfBoundsException ignored){}
@@ -114,7 +126,8 @@ public class WordHashMap {
 
             for (Map.Entry<Character, WordHashMap> entry : newHashMap.entrySet())
             {
-                entry.getValue().addLevel(refi-1, stringBuilder, entry.getKey());
+                if (entry.getValue() != null)
+                    entry.getValue().addLevel(refi-1, stringBuilder, entry.getKey());
             }
 
 
