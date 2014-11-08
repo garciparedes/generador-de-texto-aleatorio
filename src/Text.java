@@ -71,13 +71,18 @@ public class Text {
 
         StringBuilder strText = new StringBuilder();
 
-        Date principio = new Date();
-		HashMap<Character, WordHashMap> wordHashHashMap = WordHashMap.newInstance(oriText, refi);
-        Date despues = new Date();
+		//HashMap<Character, WordHashMap> wordHashHashMap = WordHashMap.newInstance(oriText, refi);
 
-        System.out.println((double) (despues.getTime()-principio.getTime())/1000);
+        ArrayList<WordList> arrayList = WordList.newInstance(oriText, refi);
 
         //Pinta los distintos niveles de profundidad de la lista
+
+        for (WordList item: arrayList.get(1).getWordLists().get(2).getWordLists()){
+            System.out.println(item.getLetter()
+                    + " = "
+                    + item.getPositionList().size()
+            );
+        }
 
 
 
@@ -96,5 +101,14 @@ public class Text {
 
 		return strText;
 	}
+
+
+    public static int getNumLetters(HashMap<Character, WordHashMap> hashMap){
+        int count = 0;
+        for(Map.Entry<Character, WordHashMap> entry : hashMap.entrySet()){
+            count = count + entry.getValue().getPositionList().size();
+        }
+        return count;
+    }
 
 }

@@ -43,7 +43,6 @@ public class WordHashMap {
         this.hashList = hashList;
     }
 
-
     public static HashMap<Character, WordHashMap> newInstance(StringBuilder strText, int refi) {
 
         HashMap<Character, WordHashMap> newHashList = new HashMap<Character, WordHashMap>();
@@ -70,39 +69,15 @@ public class WordHashMap {
 
             for (Map.Entry<Character, WordHashMap> entry : newHashList.entrySet())
             {
-                entry.getValue().addLevel(refi-1, strText, entry.getKey());
+                entry.getValue().addLevel(refi-1, strText);
             }
 
         }
-        int a = 0;
-
-        for (Map.Entry<Character, WordHashMap> entry : newHashList.get('e').getHashList()
-                .get(' ').getHashList()
-                .get('l').getHashList()
-                .entrySet())
-        {
-
-            if (entry.getValue() != null){
-                System.out.println(entry.getKey()
-                                + "  =  "
-                        + entry.getValue().getPositionList().size()
-
-                );
-                a = a+ entry.getValue().getPositionList().size();
-            } else {
-                System.out.println(entry.getKey()
-                        + "  =  0"
-                );
-            }
-
-
-        }
-        System.out.println(a);
 
         return newHashList;
     }
 
-    public void addLevel(int refi, StringBuilder stringBuilder, char key){
+    public void addLevel(int refi, StringBuilder stringBuilder){
         HashMap<Character, WordHashMap> newHashMap = getDefaultHashList();
         char charLetter;
         this.setHashList(newHashMap);
@@ -127,7 +102,7 @@ public class WordHashMap {
             for (Map.Entry<Character, WordHashMap> entry : newHashMap.entrySet())
             {
                 if (entry.getValue() != null)
-                    entry.getValue().addLevel(refi-1, stringBuilder, entry.getKey());
+                    entry.getValue().addLevel(refi-1, stringBuilder);
             }
 
 
