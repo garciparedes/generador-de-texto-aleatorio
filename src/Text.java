@@ -1,10 +1,7 @@
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 /**
  *
@@ -76,6 +73,7 @@ public class Text {
 
         Date principio = new Date();
 		HashMap<Character, WordHashMap> wordHashHashMap = WordHashMap.newInstance(oriText, refi);
+        //ArrayList<WordList> arrayList = WordList.newInstance(oriText,refi);
         Date despues = new Date();
 
         System.out.println((double) (despues.getTime()-principio.getTime())/1000);
@@ -83,20 +81,6 @@ public class Text {
         //Pinta los distintos niveles de profundidad de la lista
 
 
-
-        for (Map.Entry<Character, WordHashMap> entry : wordHashHashMap.entrySet())
-        {
-            System.out.println(entry.getKey()
-                    + "  =  "
-                    + entry.getValue()
-                            .getPositionList().size()
-            );
-        }
-
-        for (Map.Entry<Character, WordHashMap> entry : WordHashMap.getDefaultHashList().entrySet())
-        {
-            System.out.println(entry.getKey());
-        }
 
 
         /*

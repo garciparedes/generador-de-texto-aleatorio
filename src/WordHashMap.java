@@ -22,30 +22,37 @@ public class WordHashMap implements Cloneable {
     }
 
     public static HashMap<Character, WordHashMap> getDefaultHashList() {
-        return (HashMap<Character, WordHashMap>) defaultHashList.clone();
-    }
 
+
+        HashMap<Character, WordHashMap> clone = new HashMap<Character, WordHashMap>();
+
+
+        for (Map.Entry<Character, WordHashMap> entry : defaultHashList.entrySet())
+        {
+            clone.put(entry.getKey(),new WordHashMap(new ArrayList<Integer>(), null));
+
+        }
+
+
+        return clone;
+    }
     public ArrayList<Integer> getPositionList() {
         return positionList;
     }
-
     public HashMap<Character, WordHashMap> getHashList() {
         return hashList;
     }
-
-    public static void setDefaultHashList(HashMap<Character, WordHashMap> defaultHashList) {
-        WordHashMap.defaultHashList = defaultHashList;
+    public void setPositionList(ArrayList<Integer> positionList) {
+        this.positionList = positionList;
     }
-
     public void setHashList(HashMap<Character, WordHashMap> hashList) {
         this.hashList = hashList;
     }
 
-    public static HashMap<Character, WordHashMap> newInstance(StringBuilder strText, int refi) {
-        HashMap<Character, WordHashMap> newHashList = new HashMap<Character, WordHashMap>();
-        HashMap<Character, WordHashMap> newHashList1 ;
 
-        WordHashMap newWordHashMap;
+    public static HashMap<Character, WordHashMap> newInstance(StringBuilder strText, int refi) {
+
+        HashMap<Character, WordHashMap> newHashList = new HashMap<Character, WordHashMap>();
 
         ArrayList<Integer> newPositionList;
 
@@ -61,7 +68,7 @@ public class WordHashMap implements Cloneable {
                 newPositionList = new ArrayList<Integer>();
                 newPositionList.add(position);
                 newHashList.put(charLetter, new WordHashMap(newPositionList, null));
-                defaultHashList.put(charLetter, null);
+                defaultHashList.put(charLetter, new WordHashMap(null,null));
             }
         }
 
@@ -71,13 +78,60 @@ public class WordHashMap implements Cloneable {
 
             for (Map.Entry<Character, WordHashMap> entry : newHashList.entrySet())
             {
-
-                //newWordHashMap = new WordHashMap(null, getDefaultHashList());
-                //entry.setValue(newWordHashMap);
+                entry.getValue().addLevel(refi-1, strText, entry.getKey());
             }
+
+            //newHashList.get('S').addLevel(refi,strText, 'S');
+            //newHashList.get('e').addLevel(refi,strText, 'e');
+
+            int a = 0;
+
+            for (Map.Entry<Character, WordHashMap> entry : newHashList.get('e').getHashList().get(' ').getHashList().entrySet())
+            {
+                //entry.getValue().addLevel(refi,strText, entry.getKey());
+
+                System.out.println(entry.getKey()
+                                + "  =  "
+                                + entry.getValue().getPositionList().size()
+
+                );
+                a = a+ entry.getValue().getPositionList().size();
+
+            }
+            System.out.println(a);
         }
         return newHashList;
     }
 
+    public void addLevel(int refi, StringBuilder stringBuilder, char key){
+        HashMap<Character, WordHashMap> newHashMap = getDefaultHashList();
+        char charLetter;
+        this.setHashList((HashMap<Character, WordHashMap>) newHashMap.clone());
+
+
+        for (int i = 0 ; i < this.getPositionList().size() ; i++){
+            try {
+
+                //charLetter = stringBuilder.charAt(this.getPositionList().get(i)+1);
+                charLetter = stringBuilder.charAt(this.getPositionList().get(i)+1);
+
+                this.getHashList().get(charLetter).getPositionList().add(this.getPositionList().get(i) + 1);
+                //this.getHashList().get(charLetter).getPositionList()
+                //newHashMap.get(charLetter).getPositionList().add(this.getPositionList().get(i) + 1);
+
+            } catch (StringIndexOutOfBoundsException ignored){}
+
+        }
+        if (refi > 0){
+
+            for (Map.Entry<Character, WordHashMap> entry : newHashMap.entrySet())
+            {
+                entry.getValue().addLevel(refi-1, stringBuilder, entry.getKey());
+            }
+
+
+        }
+
+    }
 
 }
