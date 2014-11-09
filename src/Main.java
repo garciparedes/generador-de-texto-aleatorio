@@ -35,7 +35,7 @@ public class Main {
         String fileName = writeString(INTRODUCE_TEXTO);
 
 		//Creamos el objeto para el nuevo texto
-		Text finalText = new Text(Text.readFile(fileName), textRefi, textLength);
+		Text finalText = new Text(fileName, textRefi, textLength);
 
 		//Imprimimos el resultado en pantalla
         System.out.println(finalText.getText());
