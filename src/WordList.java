@@ -14,6 +14,10 @@ public class WordList {
         this.wordLists = wordLists;
     }
 
+    public void setPositionList(ArrayList<Integer> positionList) {
+        this.positionList = positionList;
+    }
+
     public void setWordLists(ArrayList<WordList> wordLists) {
         this.wordLists = wordLists;
     }
@@ -42,7 +46,7 @@ public class WordList {
         ArrayList<WordList> clone = new ArrayList<WordList>(defaultWordList.size());
 
         for (WordList item : defaultWordList){
-            clone.add(new WordList(item.getLetter(), new ArrayList<Integer>(), null));
+            clone.add(new WordList(item.getLetter(), null, null));
         }
 
         return clone;
@@ -92,29 +96,32 @@ public class WordList {
 
         ArrayList<Integer> newPositionList;
 
+        ArrayList<Integer> positionList = this.getPositionList();
+
         char charLetter;
 
         try {
 
-            ArrayList<Integer> positionList = this.getPositionList();
 
             for (int i = 0; i < positionList.size(); i++) {
                 try {
 
 
-                    charLetter = Text.oriText.charAt(this.getPositionList().get(i)+1);
+                    charLetter = Text.oriText.charAt(positionList.get(i)+1);
 
                     newPositionList = newWordList.get(containsLetter(newWordList, charLetter)).getPositionList();
 
 
-                    /*
+
                     if (newPositionList == null) {
-                        newPositionList = new ArrayList<Integer>();
+
+                        newPositionList = new ArrayList<Integer>(positionList.size());
                     }
-                    */
 
+                    newPositionList.add(positionList.get(i)+1);
 
-                    newPositionList.add(this.getPositionList().get(i)+1);
+                    newWordList.get(containsLetter(newWordList, charLetter)).setPositionList(newPositionList);
+
 
                 } catch (StringIndexOutOfBoundsException ignored){}
 

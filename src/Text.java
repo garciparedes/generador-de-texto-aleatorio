@@ -137,7 +137,7 @@ public class Text {
                 lenght--;
             }
         } else {
-            int i, valor, numLetters;
+            //int i, valor, numLetters;
 
             while (lenght > 0 ){
 
@@ -165,7 +165,10 @@ public class Text {
                 i = 0;
                 valor = 0;
                 while (rand > valor) {
+                    try {
                     valor += arrayList.get(i).getPositionList().size();
+
+                    } catch (NullPointerException e){}
                     i++;
                 }
                 //strText.append(arrayList.get(i).getLetter());
