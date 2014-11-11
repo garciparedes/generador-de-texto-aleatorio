@@ -10,11 +10,14 @@ import java.util.*;
 public class Text {
 
 	private StringBuilder text;
+    public static StringBuilder oriText;
 
-	//Constructor que crea el objeto texto a partir de otro anterior
-	public Text(StringBuilder oriText, int refi, int lenght){
-		this.text = genText(oriText, refi, lenght);
-	}
+
+    //Constructor que crea el objeto texto a partir de otro anterior
+    public Text(String fileName, int refi, int lenght){
+        oriText = readFile(fileName);
+        this.text = genText( refi, lenght);
+    }
 
 	public StringBuilder getText(){
 		return text;
@@ -67,48 +70,121 @@ public class Text {
 
 
 	//genera un texto aleatorio a partir de los parametros que se le manda
-	private StringBuilder genText(StringBuilder oriText, int refi, int lenght){
+    private StringBuilder genText(int refi, int lenght){
 
         StringBuilder strText = new StringBuilder();
 
-		//HashMap<Character, WordHashMap> wordHashHashMap = WordHashMap.newInstance(oriText, refi);
+        Date viejo = new Date();
+        ArrayList<WordList> arrayList = WordList.newInstance( refi);
 
-        ArrayList<WordList> arrayList = WordList.newInstance(oriText, refi);
+        Date nuevo = new Date();
 
+
+
+        System.out.println((double)(nuevo.getTime() - viejo.getTime())/1000);
         //Pinta los distintos niveles de profundidad de la lista
 
-        for (WordList item: arrayList.get(1).getWordLists().get(2).getWordLists()){
+        for (WordList item: arrayList){
             System.out.println(item.getLetter()
-                    + " = "
-                    + item.getPositionList().size()
+                            + " = "
+                            + item.getPositionList().size()
             );
         }
 
 
 
+        for (WordList item: arrayList.get(1).getWordLists()){
 
-        /*
-        int a;
-        while (lenght > 0 ){
-            a = (int)(Math.random() * al.size());
+            try {
 
-            strText.append(al.get(a).getLetter());
-            lenght--;
+
+                System.out.println(item.getLetter()
+                                + " = "
+                                + item.getPositionList().size()
+                );
+            } catch (NullPointerException e){
+                System.out.println(item.getLetter()
+                                + " =  0"
+                        //+ item.getPositionList().size()
+                );
+            }
         }
-        */
+
+        for (WordList item: arrayList.get(1).getWordLists().get(2).getWordLists()){
+
+            try {
+
+
+                System.out.println(item.getLetter()
+                                + " = "
+                                + item.getPositionList().size()
+                );
+            } catch (NullPointerException e){
+                System.out.println(item.getLetter()
+                                + " =  0"
+                        //+ item.getPositionList().size()
+                );
+            }
+        }
+        int rand;
+
+
+        if (refi == 0){
+            while (lenght > 0 ){
+                rand = (int)(Math.random() * arrayList.size());
+
+                strText.append(arrayList.get(rand).getLetter());
+                lenght--;
+            }
+        } else {
+            int i, valor, numLetters;
+
+            while (lenght > 0 ){
+
+                lenght = putChar(lenght, arrayList);
+            }
+
+        }
 
         //Provisional
 
-		return strText;
-	}
+        return strText;
+    }
+
+    private int putChar(int lenght, ArrayList<WordList> arrayList){
+        int i, valor, numLetters, rand;
+
+        try {
+            numLetters = WordList.getArrayLenght(arrayList);
 
 
-    public static int getNumLetters(HashMap<Character, WordHashMap> hashMap){
-        int count = 0;
-        for(Map.Entry<Character, WordHashMap> entry : hashMap.entrySet()){
-            count = count + entry.getValue().getPositionList().size();
-        }
-        return count;
+            if (lenght > 0 && numLetters != 0) {
+
+                //numLetters = WordList.getArrayLenght(arrayList);
+                rand = (int) (Math.random() * numLetters);
+                i = 0;
+                valor = 0;
+                while (rand > valor) {
+                    valor += arrayList.get(i).getPositionList().size();
+                    i++;
+                }
+                //strText.append(arrayList.get(i).getLetter());
+                try {
+
+
+                    System.out.print(arrayList.get(i-1).getLetter());
+                    lenght = putChar(lenght - 1, arrayList.get(i-1).getWordLists());
+
+                } catch (IndexOutOfBoundsException e){
+
+                }
+                lenght--;
+
+            }
+
+        } catch (NullPointerException e){}
+
+        return lenght;
     }
 
 }
