@@ -143,4 +143,20 @@ public class WordList {
 
         }
     }
+
+
+    public static int getArrayLenght (ArrayList<WordList> arrayList){
+        int size = 0;
+
+        for (WordList positions: arrayList){
+
+            //try {
+
+                size += positions.getPositions().size();
+
+            //}catch (NullPointerException e){}
+        }
+
+        return size;
+    }
 }

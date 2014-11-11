@@ -71,31 +71,70 @@ public class Text {
 
         StringBuilder strText = new StringBuilder();
 
-		ArrayList<WordList> al = WordList.newInstance(oriText,refi);
+		ArrayList<WordList> arrayList = WordList.newInstance(oriText,refi);
 
 
         //Pinta los distintos niveles de profundidad de la lista
 
-        for (WordList anAl : al) {
-            System.out.println(anAl.getLetter() + "    " + anAl.getPositions().size());
-        }
+        int rand;
 
 
+        if (refi == 0){
+            while (lenght > 0 ){
+                rand = (int)(Math.random() * arrayList.size());
 
+                strText.append(arrayList.get(rand).getLetter());
+                lenght--;
+            }
+        } else {
+            int i, valor, numLetters;
 
+            while (lenght > 0 ){
 
+                lenght = putChar(lenght, arrayList);
+            }
 
-        int a;
-        while (lenght > 0 ){
-            a = (int)(Math.random() * al.size());
-
-            strText.append(al.get(a).getLetter());
-            lenght--;
         }
 
         //Provisional
 
-		return strText;
-	}
+        return strText;
+    }
+
+    private int putChar(int lenght, ArrayList<WordList> arrayList){
+        int i, valor, numLetters, rand;
+
+        try {
+            numLetters = WordList.getArrayLenght(arrayList);
+
+
+            if (lenght > 0 && numLetters != 0) {
+
+                //numLetters = WordList.getArrayLenght(arrayList);
+                rand = (int) (Math.random() * numLetters);
+                i = 0;
+                valor = 0;
+                while (rand > valor) {
+                    valor += arrayList.get(i).getPositions().size();
+                    i++;
+                }
+                //strText.append(arrayList.get(i).getLetter());
+                try {
+
+
+                    System.out.print(arrayList.get(i).getLetter());
+                    lenght = putChar(lenght - 1, arrayList.get(i).getWordLists());
+
+                } catch (IndexOutOfBoundsException e){
+                    
+                }
+                lenght--;
+
+            }
+
+        } catch (NullPointerException e){}
+
+        return lenght;
+    }
 
 }
