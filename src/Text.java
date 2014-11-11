@@ -113,7 +113,7 @@ public class Text {
                 //numLetters = WordList.getArrayLenght(arrayList);
                 rand = (int) (Math.random() * numLetters);
                 i = 0;
-                valor = 0;
+                valor = arrayList.get(0).getPositions().size();
                 while (rand > valor) {
                     valor += arrayList.get(i).getPositions().size();
                     i++;
@@ -122,13 +122,12 @@ public class Text {
                 try {
 
 
-                    System.out.print(arrayList.get(i-1).getLetter());
-                    lenght = putChar(lenght - 1, arrayList.get(i-1).getWordLists());
+                    System.out.print(arrayList.get(i).getLetter());
+                    lenght = putChar(lenght - 1, arrayList.get(i).getWordLists());
 
                 } catch (IndexOutOfBoundsException e){
 
                 }
-                lenght--;
 
             }
 
