@@ -43,19 +43,20 @@ public class WordList {
 
     }
 
+
     public static ArrayList<WordList> getDefaultWordList() {
 
-        ArrayList<WordList> clone = new ArrayList<WordList>(defaultWordList.size());
+        ArrayList<WordList> clone = new ArrayList<WordList>();
 
-        for (int i = 0 ; i < defaultWordList.size() ;i++) {
-            clone.add(new WordList(defaultWordList.get(i).getLetter(), null, null));
+        for (WordList item : defaultWordList){
+            clone.add(new WordList(item.getLetter(), new ArrayList<Integer>(), null));
         }
 
         return clone;
 
     }
 
-    public static ArrayList<WordList> newInstance(int refi){
+    public static ArrayList<WordList> newInstance(StringBuilder strText, int refi){
         ArrayList<WordList> newWordList = new ArrayList<WordList>();
         ArrayList<Integer> newPositionList;
         char charLetter;
@@ -63,8 +64,8 @@ public class WordList {
         int iterator ;
 
         //Genera el primer nivel del arbol
-        for (int position = 0; position < Text.oriText.length(); position++) {
-            charLetter = Text.oriText.charAt(position);
+        for (int position = 0; position < strText.length(); position++) {
+            charLetter = strText.charAt(position);
 
             iterator = containsLetter(newWordList, charLetter);
             if ( iterator != -1) {
@@ -84,47 +85,41 @@ public class WordList {
 
         if (refi > 1) {
 
-            for (int i = 0; i < newWordList.size(); i++){
-                newWordList.get(i).addLevel(refi-1);
+            for (WordList item: newWordList){
+                item.addLevel(refi-1, strText);
             }
+
         }
 
         return newWordList;
     }
 
-    public void addLevel(int refi) {
+    public void addLevel(int refi, StringBuilder stringBuilder) {
         ArrayList<WordList> newWordList = getDefaultWordList();
-        ArrayList<Integer> newPositionList;
+
         char charLetter;
-
-        try {
-
-            ArrayList<Integer> positionList = this.getPositionList();
-
-            for (int i = 0; i < positionList.size(); i++) {
-                try {
-
-                    charLetter = Text.oriText.charAt(i + 1);
-
-                    newPositionList = newWordList.get(containsLetter(newWordList, charLetter)).getPositionList();
-
-                    if (newPositionList.isEmpty()) {
-                        newPositionList = new ArrayList<Integer>();
-                    }
-
-                    newPositionList.add(i + 1);
-
-                } catch (StringIndexOutOfBoundsException ignored) {}
-
-            }
-        } catch (NullPointerException ignored){}
 
         this.setWordLists(newWordList);
 
-        if (refi > 1){
+        int iterator;
 
-            for (int i = 0; i < newWordList.size(); i++){
-                newWordList.get(i).addLevel(refi-1);
+        for (int i = 0 ; i < this.getPositionList().size() ; i++){
+            try {
+
+                charLetter = stringBuilder.charAt(this.getPositionList().get(i)+1);
+
+                iterator = containsLetter(newWordList, charLetter);
+
+                this.getWordLists().get(iterator).getPositionList().add(this.getPositionList().get(i) + 1);
+
+            } catch (StringIndexOutOfBoundsException ignored){}
+
+        }
+
+        if (refi > 0){
+
+            for (WordList item : newWordList){
+                item.addLevel(refi-1,stringBuilder);
             }
         }
     }

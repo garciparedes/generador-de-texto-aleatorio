@@ -10,12 +10,10 @@ import java.util.*;
 public class Text {
 
 	private StringBuilder text;
-    public static StringBuilder oriText;
 
 	//Constructor que crea el objeto texto a partir de otro anterior
-	public Text(String fileName, int refi, int lenght){
-        oriText = readFile(fileName);
-		this.text = genText( refi, lenght);
+	public Text(StringBuilder oriText, int refi, int lenght){
+		this.text = genText(oriText, refi, lenght);
 	}
 
 	public StringBuilder getText(){
@@ -69,23 +67,17 @@ public class Text {
 
 
 	//genera un texto aleatorio a partir de los parametros que se le manda
-	private StringBuilder genText(int refi, int lenght){
+	private StringBuilder genText(StringBuilder oriText, int refi, int lenght){
 
         StringBuilder strText = new StringBuilder();
 
 		//HashMap<Character, WordHashMap> wordHashHashMap = WordHashMap.newInstance(oriText, refi);
 
-        Date viejo = new Date();
-        ArrayList<WordList> arrayList = WordList.newInstance( refi);
+        ArrayList<WordList> arrayList = WordList.newInstance(oriText, refi);
 
-        Date nuevo = new Date();
-
-
-
-        System.out.println((double)(nuevo.getTime() - viejo.getTime())/1000);
         //Pinta los distintos niveles de profundidad de la lista
 
-        for (WordList item: arrayList){
+        for (WordList item: arrayList.get(1).getWordLists().get(2).getWordLists()){
             System.out.println(item.getLetter()
                     + " = "
                     + item.getPositionList().size()
@@ -93,40 +85,30 @@ public class Text {
         }
 
 
+
+
         /*
-        for (WordList item: arrayList.get(0).getWordLists()){
-            System.out.println(item.getLetter()
-                            + " = "
-                            //+ item.getPositionList().size()
-            );
-        }
-
-        for (WordList item: arrayList.get(0).getWordLists().get(1).getWordLists()){
-            System.out.println(item.getLetter()
-                            + " = "
-                    //+ item.getPositionList().size()
-            );
-        }
-
-        for (WordList item: arrayList.get(0).getWordLists().get(1).getWordLists().get(0).getWordLists()){
-            System.out.println(item.getLetter()
-                            + " = "
-                    //+ item.getPositionList().size()
-            );
-        }
-        */
-
         int a;
         while (lenght > 0 ){
-            a = (int)(Math.random() * arrayList.size());
+            a = (int)(Math.random() * al.size());
 
-            strText.append(arrayList.get(a).getLetter());
+            strText.append(al.get(a).getLetter());
             lenght--;
         }
+        */
 
         //Provisional
 
 		return strText;
 	}
+
+
+    public static int getNumLetters(HashMap<Character, WordHashMap> hashMap){
+        int count = 0;
+        for(Map.Entry<Character, WordHashMap> entry : hashMap.entrySet()){
+            count = count + entry.getValue().getPositionList().size();
+        }
+        return count;
+    }
 
 }
