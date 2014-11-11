@@ -122,11 +122,11 @@ public class Text {
                 try {
 
 
-                    System.out.print(arrayList.get(i).getLetter());
-                    lenght = putChar(lenght - 1, arrayList.get(i).getWordLists());
+                    System.out.print(arrayList.get(i-1).getLetter());
+                    lenght = putChar(lenght - 1, arrayList.get(i-1).getWordLists());
 
                 } catch (IndexOutOfBoundsException e){
-                    
+
                 }
                 lenght--;
 

@@ -150,11 +150,11 @@ public class WordList {
 
         for (WordList positions: arrayList){
 
-            //try {
+            try {
 
                 size += positions.getPositions().size();
 
-            //}catch (NullPointerException e){}
+            }catch (NullPointerException e){}
         }
 
         return size;
