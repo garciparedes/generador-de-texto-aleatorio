@@ -84,48 +84,6 @@ public class Text {
         System.out.println((double)(nuevo.getTime() - viejo.getTime())/1000);
         //Pinta los distintos niveles de profundidad de la lista
 
-        for (WordList item: arrayList){
-            System.out.println(item.getLetter()
-                            + " = "
-                            + item.getPositionList().size()
-            );
-        }
-
-
-
-        for (WordList item: arrayList.get(1).getWordLists()){
-
-            try {
-
-
-                System.out.println(item.getLetter()
-                                + " = "
-                                + item.getPositionList().size()
-                );
-            } catch (NullPointerException e){
-                System.out.println(item.getLetter()
-                                + " =  0"
-                        //+ item.getPositionList().size()
-                );
-            }
-        }
-
-        for (WordList item: arrayList.get(1).getWordLists().get(2).getWordLists()){
-
-            try {
-
-
-                System.out.println(item.getLetter()
-                                + " = "
-                                + item.getPositionList().size()
-                );
-            } catch (NullPointerException e){
-                System.out.println(item.getLetter()
-                                + " =  0"
-                        //+ item.getPositionList().size()
-                );
-            }
-        }
         int rand;
 
 
@@ -181,8 +139,6 @@ public class Text {
                 } catch (IndexOutOfBoundsException e){
 
                 }
-                lenght--;
-
             }
 
         } catch (NullPointerException e){}
