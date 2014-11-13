@@ -1,10 +1,9 @@
-import java.util.ArrayList;
-import java.util.HashMap;
 
 public class WordList {
     private char letter;
     private int numLetter;
     private WordList[] continueLetter;
+    private static Character[] letterArray = new Character[0];
 
     public WordList(char letter, int numLetter, WordList[] continueLetter){
         this.letter = letter;
@@ -14,8 +13,8 @@ public class WordList {
 
     public static WordList[] newInstance(int dimension){
         WordList[] multimatriz = new WordList[0];
-        Character[] letterArray = new Character[0];
         char charLetter;
+        CharSequence charCadena;
 
 
         for(int i = 0 ; i < Text.oriText.length() ; i++ ){
@@ -24,11 +23,20 @@ public class WordList {
                 letterArray = nuevaLetra(letterArray, charLetter);
             }
 
-
         }
 
         multimatriz = creaMultiMatriz(letterArray, dimension);
 
+        for(int i = 0 ; i < Text.oriText.length() ; i++ ){
+            try {
+
+
+                charCadena = Text.oriText.subSequence(i, i + dimension);
+                multimatriz = introduceLetra(multimatriz, charCadena);
+
+            }catch (IndexOutOfBoundsException ignored){}
+
+        }
 
         return multimatriz;
     }
@@ -42,13 +50,16 @@ public class WordList {
     }
 
     private static boolean containsArray(Character[] letterArray, char charLetter){
+        return posicionLetra(charLetter) >= 0;
+    }
+
+    private static int posicionLetra(char charLetter){
         for (int i = 0 ; i < letterArray.length ; i++){
             if (letterArray[i] == charLetter){
-                return true;
+                return i;
             }
         }
-
-        return false;
+        return -1;
     }
 
     private static Character[] nuevaLetra(Character[] oldLetterArray, char charLetter){
@@ -75,5 +86,20 @@ public class WordList {
             return multimatriz;
 
         } else { return null; }
+    }
+
+    private static WordList[] introduceLetra (WordList[] multimatriz, CharSequence charCadena){
+        char letra;
+        int i;
+        if (charCadena.length() > 0){
+
+            letra = charCadena.charAt(0);
+            i = posicionLetra(letra);
+
+            multimatriz[i].numLetter++;
+
+            return  introduceLetra(multimatriz, charCadena.subSequence(1, charCadena.length()));
+        }
+        return multimatriz;
     }
 }
