@@ -49,6 +49,10 @@ public class WordList {
         return numLetter;
     }
 
+    public WordList[] getContinueLetter() {
+        return continueLetter;
+    }
+
     private static boolean containsArray(Character[] letterArray, char charLetter){
         return posicionLetra(charLetter) >= 0;
     }
@@ -96,10 +100,20 @@ public class WordList {
             letra = charCadena.charAt(0);
             i = posicionLetra(letra);
 
-            multimatriz[i].numLetter++;
+            if (charCadena.length() == 1) {
+                multimatriz[i].numLetter++;
+            }
 
             return  introduceLetra(multimatriz, charCadena.subSequence(1, charCadena.length()));
         }
         return multimatriz;
+    }
+
+    public static int numeroDeLetras(WordList[] multimatriz){
+        int acumulador = 0;
+        for(int i = 0 ; i < multimatriz.length ; i++){
+            acumulador += multimatriz[i].getNumLetter();
+        }
+        return acumulador;
     }
 }
