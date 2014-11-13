@@ -3,8 +3,19 @@ import java.util.ArrayList;
 
 public class WordList {
     private char letter;
-    private ArrayList<Integer> positionList;
+    private Integer[] positionList;
     private WordList[] wordLists;
+
+    private static WordList[] defaultWordList = new WordList[0];
+
+    public static WordList[] getDefaultWordList() {
+
+        WordList[] newWordList = new WordList[defaultWordList.length];
+        for(int i = 0 ; i < defaultWordList.length ; i++){
+            newWordList[i] = new WordList(defaultWordList[i].getLetter(), null, null);
+        }
+        return newWordList;
+    }
 
     public static WordList[] newLetter(WordList[] oldArray, WordList wordList){
         WordList[] newArray = new WordList[oldArray.length+1];
@@ -16,14 +27,24 @@ public class WordList {
         return newArray;
     }
 
-    public WordList(char letter, ArrayList<Integer> positionList, WordList[] wordLists) {
+    public static Integer[] newPosition(Integer[] oldArray, int newNum){
+        Integer[] newArray = new Integer[oldArray.length+1];
+        for (int i =0 ; i< oldArray.length; i++){
+            newArray[i] = oldArray[i];
+        }
+        newArray[newArray.length-1] = newNum;
+
+        return newArray;
+    }
+
+    public WordList(char letter, Integer[] positionList, WordList[] wordLists) {
         this.letter = letter;
         this.positionList = positionList;
         this.wordLists = wordLists;
     }
 
 
-    public void setPositionList(ArrayList<Integer> positionList) {
+    public void setPositionList(Integer[] positionList) {
         this.positionList = positionList;
     }
 
@@ -38,7 +59,7 @@ public class WordList {
     }
 
 
-    public ArrayList<Integer> getPositionList() {
+    public Integer[] getPositionList() {
         return positionList;
     }
 
@@ -60,8 +81,9 @@ public class WordList {
 
 
     public static WordList[] newInstance(int refi){
-        WordList[] newWordList = new WordList[81];
-        ArrayList<Integer> newPositionList;
+        WordList[] newWordList = new WordList[0];
+        Integer[] newPositionList = new Integer[0];
+
         char charLetter;
 
         int iterator ;
@@ -75,12 +97,18 @@ public class WordList {
 
                 //newWordList[iterator].getPositionList().add(position);
 
+                newWordList[iterator].setPositionList(newPosition(newWordList[iterator].getPositionList(), position));
+
             } else {
 
-                newPositionList = new ArrayList<Integer>();
-                newPositionList.add(position);
 
-                newWordList.add(new WordList(charLetter, newPositionList, null));
+                newPositionList = newPosition(newPositionList, position);
+
+                newWordList = newLetter(newWordList, new WordList(charLetter, newPositionList, null));
+
+                defaultWordList = newLetter(defaultWordList, new WordList(charLetter, newPositionList, null));
+
+                newPositionList = new Integer[0];
 
             }
         }
@@ -88,7 +116,7 @@ public class WordList {
         if (refi > 1) {
 
             for (int i = 0; i < newWordList.length; i++){
-               // newWordList[i].addLevel(refi-1);
+               newWordList[i].addLevel(refi-1);
             }
 
         }
@@ -96,37 +124,41 @@ public class WordList {
         return newWordList;
     }
 
-    /*
+
     public void addLevel(int refi) {
-        ArrayList<WordList> newWordList = getDefaultWordList();
+        WordList[] newWordList = getDefaultWordList();
 
-        ArrayList<Integer> newPositionList;
+        //for(int i = 0; i< newWordList.length)
 
-        ArrayList<Integer> positionList = this.getPositionList();
+        Integer[] newPositionList;
+
+        Integer[] positionList = this.getPositionList();
 
         char charLetter;
 
         try {
 
 
-            for (int i = 0; i < positionList.size(); i++) {
+            for (int i = 0; i < positionList.length; i++) {
                 try {
 
 
-                    charLetter = Text.oriText.charAt(positionList.get(i)+1);
+                    charLetter = Text.oriText.charAt(positionList[i]+1);
 
-                    newPositionList = newWordList.get(containsLetter(newWordList, charLetter)).getPositionList();
+                    newPositionList = newWordList[containsLetter(newWordList, charLetter)].getPositionList();
 
 
 
                     if (newPositionList == null) {
 
-                        newPositionList = new ArrayList<Integer>(positionList.size());
+                        newPositionList = new Integer[0];
                     }
 
-                    newPositionList.add(positionList.get(i)+1);
+                    //newPositionList.add(positionList[i]+1);
 
-                    newWordList.get(containsLetter(newWordList, charLetter)).setPositionList(newPositionList);
+                    newPositionList = newPosition(newPositionList, positionList[i]+1);
+
+                    //newWordList[containsLetter(newWordList, charLetter)].setPositionList(newPositionList);
 
 
                 } catch (StringIndexOutOfBoundsException ignored){}
@@ -140,14 +172,14 @@ public class WordList {
 
         if (refi > 1){
 
-            for (int i = 0; i < newWordList.size(); i++) {
-                newWordList.get(i).addLevel(refi - 1);
+            for (int i = 0; i < newWordList.length; i++) {
+                newWordList[i].addLevel(refi - 1);
             }
         }
     }
 
 
-    */
+
     public static int getArrayLenght (WordList[] array){
         int size = 0;
 

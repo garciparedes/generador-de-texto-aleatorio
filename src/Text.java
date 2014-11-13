@@ -84,6 +84,18 @@ public class Text {
 
         System.out.println((double)(nuevo.getTime() - viejo.getTime())/1000);
 
+        System.out.println(multiMatriz.length);
+        for(int i = 0; i < multiMatriz.length; i++){
+            System.out.println(multiMatriz[i].getLetter() + " " + multiMatriz[i].getPositionList().length);
+        }
+
+        System.out.println(multiMatriz[0].getWordLists().length);
+        for(int i = 0; i < multiMatriz[0].getWordLists().length; i++){
+            System.out.println(multiMatriz[0].getWordLists()[i].getLetter() + " "
+                    + multiMatriz[0].getWordLists()[i].getPositionList().length
+                    );
+        }
+
         int rand;
 
         if (refi == 0){
@@ -117,7 +129,7 @@ public class Text {
 
                 //Acumulador del numero de letras
                 while (rand > valor) {
-                    try { valor += multiMatriz[i].getPositionList().size(); }
+                    try { valor += multiMatriz[i].getPositionList().length; }
                     catch (NullPointerException e){}
                     i++;
                 }
@@ -125,7 +137,7 @@ public class Text {
                 try {
 
                     System.out.print(multiMatriz[i - 1].getLetter());
-                    lenght = putChar(lenght - 1, multiMatriz[i-1].getWordLists());
+                    lenght = putChar(lenght - 1, multiMatriz[i - 1].getWordLists());
 
                 } catch (IndexOutOfBoundsException ignore){}
             }
