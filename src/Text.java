@@ -12,7 +12,6 @@ public class Text {
 	private StringBuilder text;
     public static StringBuilder oriText;
 
-
     //Constructor que crea el objeto texto a partir de otro anterior
     public Text(String fileName, int refi, int lenght){
         oriText = readFile(fileName);
@@ -45,7 +44,7 @@ public class Text {
             // Lectura del fichero
             String linea;
             while((linea=br.readLine())!=null) {
-                textBuilder.append(linea);
+                textBuilder.append(linea).append('\n');
             }
 
         }catch(Exception FileNotFoundException){
@@ -65,6 +64,11 @@ public class Text {
                 e2.printStackTrace();
             }
         }
+
+
+        // Para evitar problemas de límite
+        textBuilder.deleteCharAt(textBuilder.length()-1);
+
         return textBuilder;
     }
 
@@ -76,16 +80,11 @@ public class Text {
 
         Date viejo = new Date();
         ArrayList<WordList> arrayList = WordList.newInstance( refi);
-
         Date nuevo = new Date();
 
-
-
         System.out.println((double)(nuevo.getTime() - viejo.getTime())/1000);
-        //Pinta los distintos niveles de profundidad de la lista
 
         int rand;
-
 
         if (refi == 0){
             while (lenght > 0 ){
@@ -95,50 +94,40 @@ public class Text {
                 lenght--;
             }
         } else {
-            //int i, valor, numLetters;
 
             while (lenght > 0 ){
-
                 lenght = putChar(lenght, arrayList);
             }
 
         }
 
-        //Provisional
-
         return strText;
     }
 
     private int putChar(int lenght, ArrayList<WordList> arrayList){
-        int i, valor, numLetters, rand;
 
         try {
-            numLetters = WordList.getArrayLenght(arrayList);
-
+            int numLetters = WordList.getArrayLenght(arrayList);
 
             if (lenght > 0 && numLetters != 0) {
 
-                //numLetters = WordList.getArrayLenght(arrayList);
-                rand = (int) (Math.random() * numLetters);
-                i = 0;
-                valor = 0;
-                while (rand > valor) {
-                    try {
-                    valor += arrayList.get(i).getPositionList().size();
+                int i = 0, valor = 0;
 
-                    } catch (NullPointerException e){}
+                int rand = (int) (Math.random() * numLetters);
+
+                //Acumulador del numero de letras
+                while (rand > valor) {
+                    try { valor += arrayList.get(i).getPositionList().size(); }
+                    catch (NullPointerException e){}
                     i++;
                 }
-                //strText.append(arrayList.get(i).getLetter());
-                try {
 
+                try {
 
                     System.out.print(arrayList.get(i-1).getLetter());
                     lenght = putChar(lenght - 1, arrayList.get(i-1).getWordLists());
 
-                } catch (IndexOutOfBoundsException e){
-
-                }
+                } catch (IndexOutOfBoundsException ignore){}
             }
 
         } catch (NullPointerException e){}
