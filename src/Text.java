@@ -78,7 +78,20 @@ public class Text {
 
     //genera un texto aleatorio a partir de los parametros que se le manda
     private StringBuilder genText(int refi) {
+
+        StringBuilder texto = new StringBuilder(this.lenghtText);
+        
         WordList[] multiMatriz = WordList.newInstance(refi);
 
+
+        for (int i = 0; i < multiMatriz.length ; i++){
+            System.out.println(multiMatriz[i].getLetter()
+                            + "  =  "
+                            + multiMatriz[i].getNumLetter()
+            );
+        }
+
+
+        return texto;
     }
 }
