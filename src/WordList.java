@@ -4,57 +4,63 @@ import java.util.ArrayList;
 public class WordList {
     private char letter;
     private ArrayList<Integer> positionList;
-    private ArrayList<WordList> wordLists;
-    private static ArrayList<WordList> defaultWordList = new ArrayList<WordList>();
+    private WordList[] wordLists;
 
+    public static WordList[] newLetter(WordList[] oldArray, WordList wordList){
+        WordList[] newArray = new WordList[oldArray.length+1];
+        for (int i =0 ; i< oldArray.length; i++){
+            newArray[i] = new WordList(oldArray[i].getLetter(), oldArray[i].getPositionList(), null);
+        }
+        newArray[newArray.length-1] = wordList;
 
-    public WordList(char letter, ArrayList<Integer> positionList, ArrayList<WordList> wordLists) {
+        return newArray;
+    }
+
+    public WordList(char letter, ArrayList<Integer> positionList, WordList[] wordLists) {
         this.letter = letter;
         this.positionList = positionList;
         this.wordLists = wordLists;
     }
 
+
     public void setPositionList(ArrayList<Integer> positionList) {
         this.positionList = positionList;
     }
 
-    public void setWordLists(ArrayList<WordList> wordLists) {
+
+    public void setWordLists(WordList[] wordLists) {
         this.wordLists = wordLists;
     }
+
+
     public char getLetter() {
         return letter;
     }
+
+
     public ArrayList<Integer> getPositionList() {
         return positionList;
     }
-    public ArrayList<WordList> getWordLists() {
+
+
+    public WordList[] getWordLists() {
         return wordLists;
     }
 
-    private static int containsLetter(ArrayList<WordList> arrayList, char letter){
 
-        for (int i = 0 ; i< arrayList.size() ; i++){
-            if (arrayList.get(i).getLetter() == letter){
+    private static int containsLetter(WordList[] array, char letter){
+
+        for (int i = 0 ; i< array.length ; i++){
+            if (array[i].getLetter() == letter){
                 return i;
             }
         }
         return -1;
     }
 
-    public static ArrayList<WordList> getDefaultWordList() {
 
-        ArrayList<WordList> clone = new ArrayList<WordList>(defaultWordList.size());
-
-        for (WordList item : defaultWordList){
-            clone.add(new WordList(item.getLetter(), null, null));
-        }
-
-        return clone;
-
-    }
-
-    public static ArrayList<WordList> newInstance(int refi){
-        ArrayList<WordList> newWordList = new ArrayList<WordList>();
+    public static WordList[] newInstance(int refi){
+        WordList[] newWordList = new WordList[81];
         ArrayList<Integer> newPositionList;
         char charLetter;
 
@@ -67,7 +73,7 @@ public class WordList {
             iterator = containsLetter(newWordList, charLetter);
             if ( iterator != -1) {
 
-                newWordList.get(iterator).getPositionList().add(position);
+                //newWordList[iterator].getPositionList().add(position);
 
             } else {
 
@@ -76,14 +82,13 @@ public class WordList {
 
                 newWordList.add(new WordList(charLetter, newPositionList, null));
 
-                defaultWordList.add(new WordList(charLetter, null, null));
             }
         }
 
         if (refi > 1) {
 
-            for (int i = 0; i < newWordList.size(); i++){
-                newWordList.get(i).addLevel(refi-1);
+            for (int i = 0; i < newWordList.length; i++){
+               // newWordList[i].addLevel(refi-1);
             }
 
         }
@@ -91,6 +96,7 @@ public class WordList {
         return newWordList;
     }
 
+    /*
     public void addLevel(int refi) {
         ArrayList<WordList> newWordList = getDefaultWordList();
 
@@ -139,14 +145,17 @@ public class WordList {
             }
         }
     }
-    public static int getArrayLenght (ArrayList<WordList> arrayList){
+
+
+    */
+    public static int getArrayLenght (WordList[] array){
         int size = 0;
 
-        for (WordList positions: arrayList){
+        for (WordList positions: array){
 
             try {
 
-                size += positions.getPositionList().size();
+                size += positions.getPositionList().length;
 
             }catch (NullPointerException e){}
         }

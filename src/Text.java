@@ -79,7 +79,7 @@ public class Text {
         StringBuilder strText = new StringBuilder();
 
         Date viejo = new Date();
-        ArrayList<WordList> arrayList = WordList.newInstance( refi);
+        WordList[] multiMatriz = WordList.newInstance( refi);
         Date nuevo = new Date();
 
         System.out.println((double)(nuevo.getTime() - viejo.getTime())/1000);
@@ -88,15 +88,15 @@ public class Text {
 
         if (refi == 0){
             while (lenght > 0 ){
-                rand = (int)(Math.random() * arrayList.size());
+                rand = (int)(Math.random() * multiMatriz.length);
 
-                strText.append(arrayList.get(rand).getLetter());
+                strText.append(multiMatriz[rand].getLetter());
                 lenght--;
             }
         } else {
 
             while (lenght > 0 ){
-                lenght = putChar(lenght, arrayList);
+                lenght = putChar(lenght, multiMatriz);
             }
 
         }
@@ -104,10 +104,10 @@ public class Text {
         return strText;
     }
 
-    private int putChar(int lenght, ArrayList<WordList> arrayList){
+    private int putChar(int lenght, WordList[] multiMatriz){
 
         try {
-            int numLetters = WordList.getArrayLenght(arrayList);
+            int numLetters = WordList.getArrayLenght(multiMatriz);
 
             if (lenght > 0 && numLetters != 0) {
 
@@ -117,15 +117,15 @@ public class Text {
 
                 //Acumulador del numero de letras
                 while (rand > valor) {
-                    try { valor += arrayList.get(i).getPositionList().size(); }
+                    try { valor += multiMatriz[i].getPositionList().size(); }
                     catch (NullPointerException e){}
                     i++;
                 }
 
                 try {
 
-                    System.out.print(arrayList.get(i-1).getLetter());
-                    lenght = putChar(lenght - 1, arrayList.get(i-1).getWordLists());
+                    System.out.print(multiMatriz[i - 1].getLetter());
+                    lenght = putChar(lenght - 1, multiMatriz[i-1].getWordLists());
 
                 } catch (IndexOutOfBoundsException ignore){}
             }
