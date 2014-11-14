@@ -11,17 +11,20 @@ public class Text {
     private int lenghtText;
     public static StringBuilder oriText;
 
+    
     //Constructor que crea el objeto texto a partir de otro anterior
     public Text(String fileName, int refi, int lenghtText) {
         oriText = readFile(fileName);
-        this.text = genText(refi);
+        this.text = genText(refi, lenghtText);
         this.lenghtText = lenghtText;
 
     }
 
+
     public StringBuilder getText() {
         return text;
     }
+
 
     //Lee desde fichero y genera el texto con el contenido que hay en ��l
     public static StringBuilder readFile(String fileName) {
@@ -55,7 +58,7 @@ public class Text {
 
         } finally {
             // En el finally cerramos el fichero, para asegurarnos
-            // que se cierra tanto si todo va bien como si salta
+            // que se cierra tanto si va bien como si salta
             // una excepcion.
             try {
                 if (null != fr) {
@@ -75,7 +78,7 @@ public class Text {
 
 
     //genera un texto aleatorio a partir de los parametros que se le manda
-    private StringBuilder genText(int refi) {
+    private StringBuilder genText(int refi, int lenght) {
 
         StringBuilder texto = new StringBuilder(this.lenghtText);
 
@@ -84,6 +87,53 @@ public class Text {
 
 
 
+        //Pinta los distintos niveles de profundidad de la lista
+
+        int rand;
+
+
+        if (refi == 0){
+            while (lenght > 0 ){
+                rand = (int)(Math.random() * multiMatriz.length);
+
+                texto.append(multiMatriz[rand].getLetter());
+                lenght--;
+            }
+        } else {
+
+            while (lenght > 0 ){
+
+                lenght = putChar(lenght, multiMatriz);
+            }
+
+        }
+
         return texto;
     }
+
+
+    private int putChar(int lenght, WordList[] multiMatriz){
+        int i, valor, numLetters, rand;
+
+        numLetters = WordList.numeroDeLetras(multiMatriz);
+
+        if (lenght > 0 && numLetters != 0) {
+
+            rand = (int) (Math.random() * numLetters);
+            i = 0;
+            valor = multiMatriz[0].getNumLetter();
+
+            while (valor <= rand ) {
+                i++;
+                valor += multiMatriz[i].getNumLetter();
+            }
+
+            System.out.print(multiMatriz[i].getLetter());
+            lenght = putChar(lenght - 1, multiMatriz[i].getContinueLetter());
+
+        }
+
+        return lenght;
+    }
+
 }

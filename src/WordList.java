@@ -129,9 +129,12 @@ public class WordList {
 
     public static int numeroDeLetras(WordList[] multimatriz){
         int acumulador = 0;
-        for(int i = 0 ; i < multimatriz.length ; i++){
-            acumulador += multimatriz[i].getNumLetter();
-        }
+        try {
+            for (WordList elemento : multimatriz) {
+                acumulador += elemento.getNumLetter();
+            }
+        } catch (NullPointerException ignored){}
+
         return acumulador;
     }
 
