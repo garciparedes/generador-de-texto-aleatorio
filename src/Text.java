@@ -1,8 +1,6 @@
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.util.*;
-
 /**
  *
  * @author segarci & albamig
@@ -80,16 +78,10 @@ public class Text {
     private StringBuilder genText(int refi) {
 
         StringBuilder texto = new StringBuilder(this.lenghtText);
-        
+
         WordList[] multiMatriz = WordList.newInstance(refi);
 
 
-        for (int i = 0; i < multiMatriz.length ; i++){
-            System.out.println(multiMatriz[i].getLetter()
-                            + "  =  "
-                            + multiMatriz[i].getNumLetter()
-            );
-        }
 
 
         return texto;

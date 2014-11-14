@@ -5,21 +5,22 @@ public class WordList {
     private WordList[] continueLetter;
     private static Character[] letterArray = new Character[0];
 
+
     public WordList(char letter, int numLetter, WordList[] continueLetter){
         this.letter = letter;
         this.numLetter = numLetter;
         this.continueLetter = continueLetter;
     }
 
+
     public static WordList[] newInstance(int dimension){
-        WordList[] multimatriz = new WordList[0];
+        WordList[] multimatriz;
         char charLetter;
         CharSequence charCadena;
 
-
         for(int i = 0 ; i < Text.oriText.length() ; i++ ){
             charLetter = Text.oriText.charAt(i);
-            if (!containsArray(letterArray, charLetter)){
+            if (!containsArray( charLetter)){
                 letterArray = nuevaLetra(letterArray, charLetter);
             }
 
@@ -30,9 +31,20 @@ public class WordList {
         for(int i = 0 ; i < Text.oriText.length() ; i++ ){
             try {
 
-
                 charCadena = Text.oriText.subSequence(i, i + dimension);
-                multimatriz = introduceLetra(multimatriz, charCadena);
+
+                char letra;
+                int posicion;
+                if (charCadena.length() > 0){
+
+                    letra = charCadena.charAt(0);
+
+                    posicion = posicionLetra(letra);
+
+                    multimatriz[posicion].numLetter++;
+
+                    multimatriz[posicion].introduceLetra(charCadena.subSequence(1, charCadena.length()));
+                }
 
             }catch (IndexOutOfBoundsException ignored){}
 
@@ -41,21 +53,26 @@ public class WordList {
         return multimatriz;
     }
 
+
     public char getLetter() {
         return letter;
     }
+
 
     public int getNumLetter() {
         return numLetter;
     }
 
+
     public WordList[] getContinueLetter() {
         return continueLetter;
     }
 
-    private static boolean containsArray(Character[] letterArray, char charLetter){
+
+    private static boolean containsArray( char charLetter){
         return posicionLetra(charLetter) >= 0;
     }
+
 
     private static int posicionLetra(char charLetter){
         for (int i = 0 ; i < letterArray.length ; i++){
@@ -66,16 +83,17 @@ public class WordList {
         return -1;
     }
 
+
     private static Character[] nuevaLetra(Character[] oldLetterArray, char charLetter){
         Character[] newLetterArray = new Character[oldLetterArray.length + 1];
 
-        for (int i =0 ; i < oldLetterArray.length ; i++ ){
-            newLetterArray[i] = oldLetterArray[i];
-        }
+        System.arraycopy(oldLetterArray, 0, newLetterArray, 0, oldLetterArray.length);
+
         newLetterArray[newLetterArray.length-1] = charLetter;
 
         return newLetterArray;
     }
+
 
     private static WordList[] creaMultiMatriz(Character[] letterArray, int dimension){
 
@@ -92,7 +110,9 @@ public class WordList {
         } else { return null; }
     }
 
-    private static WordList[] introduceLetra (WordList[] multimatriz, CharSequence charCadena){
+
+    private void introduceLetra ( CharSequence charCadena){
+
         char letra;
         int i;
         if (charCadena.length() > 0){
@@ -100,14 +120,12 @@ public class WordList {
             letra = charCadena.charAt(0);
             i = posicionLetra(letra);
 
-            if (charCadena.length() == 1) {
-                multimatriz[i].numLetter++;
-            }
+            this.getContinueLetter()[i].numLetter++;
 
-            return  introduceLetra(multimatriz, charCadena.subSequence(1, charCadena.length()));
+            this.getContinueLetter()[i].introduceLetra(charCadena.subSequence(1, charCadena.length()));
         }
-        return multimatriz;
     }
+
 
     public static int numeroDeLetras(WordList[] multimatriz){
         int acumulador = 0;
@@ -116,4 +134,5 @@ public class WordList {
         }
         return acumulador;
     }
+
 }
