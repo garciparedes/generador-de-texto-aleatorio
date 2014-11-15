@@ -15,8 +15,8 @@ public class Text {
     //Constructor que crea el objeto texto a partir de otro anterior
     public Text(String fileName, int refi, int lenghtText) {
         oriText = readFile(fileName);
-        this.text = genText(refi, lenghtText);
         this.lenghtText = lenghtText;
+        this.text = genText(refi, lenghtText);
 
     }
 
@@ -80,7 +80,7 @@ public class Text {
     //genera un texto aleatorio a partir de los parametros que se le manda
     private StringBuilder genText(int refi, int lenght) {
 
-        StringBuilder texto = new StringBuilder(this.lenghtText);
+        StringBuilder texto = new StringBuilder();
 
         WordList[] multiMatriz = WordList.newInstance(refi);
 
@@ -101,23 +101,21 @@ public class Text {
             }
         } else {
 
-            while (lenght > 0 ){
-
-                lenght = putChar(lenght, multiMatriz);
+            while (texto.length() < lenghtText ){
+                texto = putChar(texto, multiMatriz);
             }
-
         }
 
         return texto;
     }
 
 
-    private int putChar(int lenght, WordList[] multiMatriz){
+    private StringBuilder putChar(StringBuilder stringBuilder, WordList[] multiMatriz){
         int i, valor, numLetters, rand;
 
         numLetters = WordList.numeroDeLetras(multiMatriz);
 
-        if (lenght > 0 && numLetters != 0) {
+        if (stringBuilder.length() < lenghtText && numLetters != 0) {
 
             rand = (int) (Math.random() * numLetters);
             i = 0;
@@ -128,12 +126,12 @@ public class Text {
                 valor += multiMatriz[i].getNumLetter();
             }
 
-            System.out.print(multiMatriz[i].getLetter());
-            lenght = putChar(lenght - 1, multiMatriz[i].getContinueLetter());
+            stringBuilder.append(multiMatriz[i].getLetter());
+            stringBuilder = putChar(stringBuilder, multiMatriz[i].getContinueLetter());
 
         }
 
-        return lenght;
+        return stringBuilder;
     }
 
 }
