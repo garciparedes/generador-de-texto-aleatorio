@@ -10,12 +10,14 @@ public class Text {
     private StringBuilder text;
     private int lenghtText;
     public static StringBuilder oriText;
+    private WordList[] multiMatrizOriginal;
 
-    
+
     //Constructor que crea el objeto texto a partir de otro anterior
     public Text(String fileName, int refi, int lenghtText) {
         oriText = readFile(fileName);
         this.lenghtText = lenghtText;
+        this.multiMatrizOriginal = WordList.newInstance(refi);
         this.text = genText(refi, lenghtText);
 
     }
@@ -82,7 +84,6 @@ public class Text {
 
         StringBuilder texto = new StringBuilder();
 
-        WordList[] multiMatriz = WordList.newInstance(refi);
 
 
 
@@ -94,22 +95,21 @@ public class Text {
 
         if (refi == 0){
             while (lenght > 0 ){
-                rand = (int)(Math.random() * multiMatriz.length);
+                rand = (int)(Math.random() * multiMatrizOriginal.length);
 
-                texto.append(multiMatriz[rand].getLetter());
+                texto.append(multiMatrizOriginal[rand].getLetter());
                 lenght--;
             }
         } else {
-            texto = putChar(texto, multiMatriz, multiMatriz);
+            texto = putChar(texto, multiMatrizOriginal);
         }
 
         return texto;
     }
 
 
-    private StringBuilder putChar(StringBuilder stringBuilder, WordList[] multiMatriz, WordList[] multiMatrizOriginal){
+    private StringBuilder putChar(StringBuilder stringBuilder, WordList[] multiMatriz){
         int i;
-
 
         if (stringBuilder.length() < lenghtText ) {
 
@@ -131,17 +131,17 @@ public class Text {
                 }
 
                 stringBuilder.append(multiMatriz[i].getLetter());
-                stringBuilder = putChar(stringBuilder, multiMatriz[i].getContinueLetter(), multiMatrizOriginal);
+                stringBuilder = putChar(stringBuilder, multiMatriz[i].getContinueLetter());
 
             } else {
 
                 char lastLetter = stringBuilder.charAt(stringBuilder.length()-1);
                 i = WordList.posicionLetra(lastLetter);
 
-                stringBuilder = putChar(stringBuilder, multiMatrizOriginal[i].getContinueLetter(), multiMatrizOriginal);
-
+                stringBuilder = putChar(stringBuilder, multiMatrizOriginal[i].getContinueLetter());
 
             }
+
         }
 
         return stringBuilder;
