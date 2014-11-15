@@ -62,18 +62,18 @@ public class WordList {
     /**
      * El método newInstance genera un ArrayList formado por objetos WordList
      *
-     * @param strText Texto a partir del cual se generara el arbol
+     *
      * @param refi Nivel de profundidad que tendra el arbol
      * @return listLetter un ArrayList<WordList>
      */
-	public static ArrayList<WordList> newInstance(StringBuilder strText, int refi){
+	public static ArrayList<WordList> newInstance( int refi){
 		ArrayList<WordList> listLetter = new ArrayList<WordList>();
 		char charLetter;
 		WordList letter;
 
         //Genera el primer nivel del arbol
-        for (int position = 0; position < strText.length(); position++){
-            charLetter = strText.charAt(position);
+        for (int position = 0; position < Text.getOriText().length(); position++){
+            charLetter = Text.getOriText().charAt(position);
             letter = new WordList(charLetter,new ArrayList<Integer>(), null);
             if (!letter.belongs(listLetter,position)){
                 listLetter.add(letter);
@@ -82,7 +82,7 @@ public class WordList {
 
         //Genera los n siguientes niveles
         for(int i = 0; i < listLetter.size(); i++)
-            listLetter.get(i).addLetter(strText, refi -1);
+            listLetter.get(i).addLetter(refi -1);
 
 		return  listLetter;
 	}
@@ -111,10 +111,9 @@ public class WordList {
     /**
      * El metodo addLetter genera un nivel mas de profundidad en el arbol
      * y se llama a si mismo recursivamente mientras refi sea mayor que 0
-     * @param strText Texto a partir del cual se generara el arbol
      * @param refi Nivel de profundidad que tendra el arbol
      */
-    private void addLetter(StringBuilder strText, int refi){
+    private void addLetter( int refi){
 
         char charLetter;
         WordList letter;
@@ -124,7 +123,7 @@ public class WordList {
         for (int a = 0; a < this.getPositions().size(); a++) {
             try {
 
-                charLetter = strText.charAt(this.getPositions().get(a)+1);
+                charLetter = Text.getOriText().charAt(this.getPositions().get(a)+1);
 
                 letter = new WordList(charLetter,new ArrayList<Integer>(), null);
 
@@ -138,10 +137,21 @@ public class WordList {
         if (refi > 0){
 
             for(int i = 0; i < listLetter.size(); i++)
-                listLetter.get(i).addLetter(strText, refi -1);
+                listLetter.get(i).addLetter( refi -1);
 
 
         }
+    }
+
+    public static int posicionLetra(ArrayList<WordList> arrayList, char letra){
+
+        for (int i = 0 ;  i < arrayList.size() ; i++){
+            if (arrayList.get(i).letter == letra){
+                return i;
+            }
+        }
+        return -1;
+
     }
 
 

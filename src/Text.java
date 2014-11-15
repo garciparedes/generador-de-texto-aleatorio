@@ -10,10 +10,16 @@ import java.util.ArrayList;
 public class Text {
 
 	private StringBuilder text;
+    private ArrayList<WordList> wordListArrayListOriginal;
+    private int textLenght;
+    private static StringBuilder oriText;
 
 	//Constructor que crea el objeto texto a partir de otro anterior
-	public Text(StringBuilder oriText, int refi, int lenght){
-		this.text = genText(oriText, refi, lenght);
+	public Text(String fileName, int refi, int lenght){
+        oriText = readFile(fileName);
+        this.wordListArrayListOriginal = WordList.newInstance(refi);
+        this.textLenght = lenght;
+        this.text = genText(refi);
 	}
 
 	public StringBuilder getText(){
@@ -65,13 +71,16 @@ public class Text {
         return textBuilder;
     }
 
+    public static StringBuilder getOriText() {
+        return oriText;
+    }
 
-	//genera un texto aleatorio a partir de los parametros que se le manda
-	private StringBuilder genText(StringBuilder oriText, int refi, int lenght){
+    //genera un texto aleatorio a partir de los parametros que se le manda
+	private StringBuilder genText(int refi){
 
         StringBuilder strText = new StringBuilder();
 
-		ArrayList<WordList> arrayList = WordList.newInstance(oriText,refi);
+		ArrayList<WordList> arrayList = WordList.newInstance(refi);
 
 
         //Pinta los distintos niveles de profundidad de la lista
@@ -80,19 +89,13 @@ public class Text {
 
 
         if (refi == 0){
-            while (lenght > 0 ){
+            while (strText.length() < textLenght ){
                 rand = (int)(Math.random() * arrayList.size());
 
                 strText.append(arrayList.get(rand).getLetter());
-                lenght--;
             }
         } else {
-            int i, valor, numLetters;
-
-            while (lenght > 0 ){
-
-                lenght = putChar(lenght, arrayList);
-            }
+            strText = putChar(strText, arrayList);
 
         }
 
@@ -101,39 +104,46 @@ public class Text {
         return strText;
     }
 
-    private int putChar(int lenght, ArrayList<WordList> arrayList){
+    private StringBuilder putChar(StringBuilder strText, ArrayList<WordList> arrayList){
         int i, valor, numLetters, rand;
 
-        try {
-            numLetters = WordList.getArrayLenght(arrayList);
+            if (strText.length() < textLenght ) {
 
-
-            if (lenght > 0 && numLetters != 0) {
-
-                //numLetters = WordList.getArrayLenght(arrayList);
-                rand = (int) (Math.random() * numLetters);
-                i = 0;
-                valor = arrayList.get(0).getPositions().size();
-                while (rand > valor) {
-                    valor += arrayList.get(i).getPositions().size();
-                    i++;
-                }
-                //strText.append(arrayList.get(i).getLetter());
                 try {
+                    numLetters = WordList.getArrayLenght(arrayList);
 
-
-                    System.out.print(arrayList.get(i).getLetter());
-                    lenght = putChar(lenght - 1, arrayList.get(i).getWordLists());
-
-                } catch (IndexOutOfBoundsException e){
-
+                } catch (NullPointerException e){
+                    numLetters = 0;
                 }
 
+
+                if (numLetters != 0) {
+
+                    rand = (int) (Math.random() * numLetters);
+                    i = 0;
+                    valor = arrayList.get(0).getPositions().size();;
+
+                    while (valor <= rand) {
+                        i++;
+                        valor += arrayList.get(i).getPositions().size();
+                    }
+                    strText.append(arrayList.get(i).getLetter());
+                    strText = putChar(strText, arrayList.get(i).getWordLists());
+
+                } else{
+
+                    char lastLetter = strText.charAt(strText.length()-1);
+
+                    i = WordList.posicionLetra(wordListArrayListOriginal,lastLetter);
+
+                    strText = putChar(strText, wordListArrayListOriginal.get(i).getWordLists());
+
+                }
             }
 
-        } catch (NullPointerException e){}
 
-        return lenght;
+
+        return strText;
     }
 
 }
