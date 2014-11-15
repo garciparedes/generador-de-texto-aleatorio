@@ -74,7 +74,7 @@ public class WordList {
     }
 
 
-    private static int posicionLetra(char charLetter){
+    public static int posicionLetra(char charLetter){
         for (int i = 0 ; i < letterArray.length ; i++){
             if (letterArray[i] == charLetter){
                 return i;

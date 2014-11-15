@@ -100,35 +100,48 @@ public class Text {
                 lenght--;
             }
         } else {
-
-            while (texto.length() < lenghtText ){
-                texto = putChar(texto, multiMatriz);
-            }
+            texto = putChar(texto, multiMatriz, multiMatriz);
         }
 
         return texto;
     }
 
 
-    private StringBuilder putChar(StringBuilder stringBuilder, WordList[] multiMatriz){
-        int i, valor, numLetters, rand;
+    private StringBuilder putChar(StringBuilder stringBuilder, WordList[] multiMatriz, WordList[] multiMatrizOriginal){
+        int i;
 
-        numLetters = WordList.numeroDeLetras(multiMatriz);
 
-        if (stringBuilder.length() < lenghtText && numLetters != 0) {
+        if (stringBuilder.length() < lenghtText ) {
 
-            rand = (int) (Math.random() * numLetters);
-            i = 0;
-            valor = multiMatriz[0].getNumLetter();
+            int numLetters;
 
-            while (valor <= rand ) {
-                i++;
-                valor += multiMatriz[i].getNumLetter();
+            numLetters = WordList.numeroDeLetras(multiMatriz);
+
+            if (numLetters != 0) {
+
+                int valor, rand;
+
+                rand = (int) (Math.random() * numLetters);
+                i = 0;
+                valor = multiMatriz[0].getNumLetter();
+
+                while (valor <= rand) {
+                    i++;
+                    valor += multiMatriz[i].getNumLetter();
+                }
+
+                stringBuilder.append(multiMatriz[i].getLetter());
+                stringBuilder = putChar(stringBuilder, multiMatriz[i].getContinueLetter(), multiMatrizOriginal);
+
+            } else {
+
+                char lastLetter = stringBuilder.charAt(stringBuilder.length()-1);
+                i = WordList.posicionLetra(lastLetter);
+
+                stringBuilder = putChar(stringBuilder, multiMatrizOriginal[i].getContinueLetter(), multiMatrizOriginal);
+
+
             }
-
-            stringBuilder.append(multiMatriz[i].getLetter());
-            stringBuilder = putChar(stringBuilder, multiMatriz[i].getContinueLetter());
-
         }
 
         return stringBuilder;
