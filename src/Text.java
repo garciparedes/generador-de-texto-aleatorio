@@ -3,8 +3,8 @@ import java.io.File;
 import java.io.FileReader;
 
 /**
- * @author segarci
- * @author albamig
+ * @author Sergio Garcia Prado
+ * @author Alberto Amigo Alonso
  */
 public class Text {
 

@@ -1,8 +1,8 @@
 /**
  * Clase para representar los caracteres
  *
- * @author segarci
- * @author albamig
+ * @author Sergio Garcia Prado
+ * @author Alberto Amigo Alonso
  */
 public class WordList {
 

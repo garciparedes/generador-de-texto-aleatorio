@@ -1,8 +1,8 @@
 import java.util.Scanner;
 
 /**
- * @author segarci
- * @author albamig
+ * @author Sergio Garcia Prado
+ * @author Alberto Amigo Alonso
  */
 public class Main {
 
