@@ -53,10 +53,13 @@ public class Text {
                 textBuilder.append(linea).append('\n');
             }
 
+            // Para evitar problemas de límite
+            textBuilder.deleteCharAt(textBuilder.length() - 1);
+
         } catch (Exception FileNotFoundException) {
             System.out.println(ERROR_FICHERO);
             fileName = Main.writeString(Main.INTRODUCE_TEXTO);
-            Text.readFile(fileName);
+            textBuilder = readFile(fileName);
 
         } finally {
             // En el finally cerramos el fichero, para asegurarnos
@@ -70,10 +73,6 @@ public class Text {
                 e2.printStackTrace();
             }
         }
-
-
-        // Para evitar problemas de límite
-        textBuilder.deleteCharAt(textBuilder.length() - 1);
 
         return textBuilder;
     }
