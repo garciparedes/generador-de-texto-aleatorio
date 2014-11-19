@@ -1,8 +1,12 @@
+
+/**
+ * 
+ */
+
 import java.util.Scanner;
 
 /**
- * @author Sergio Garcia Prado
- * @author Alberto Amigo Alonso
+ * @author segarci & albamig
  */
 public class Main {
 
@@ -11,10 +15,8 @@ public class Main {
     private static final String INTRODUCE_NUM_REFI = "Introduzca el nivel de refinamiento que tendra el texto que desea generar: ";
     public static final String INTRODUCE_TEXTO = "Introduzca el nombre del fichero que contiene el texto base: ";
     private static final String ERROR_LECTURA_ENTERO = "Error: El numero tiene que ser un entero positivo.";
-    private static final String DEVUELVE_TEXTO = "El texto generado es el siguiente";
 
     private static Scanner sc;
-
 
     /**
 	 * @param args Argumento necesario para el metodo main
@@ -23,21 +25,22 @@ public class Main {
 
         System.out.println(WELCOME);
 
+        //Leemos el numero de lineas que tendra el fichero
         int textLength = writeInt(INTRODUCE_NUM_CHAR, ERROR_LECTURA_ENTERO);
 
+		//Leemos el nivel de refinamiento que tendra el fichero
 		int textRefi = writeInt(INTRODUCE_NUM_REFI, ERROR_LECTURA_ENTERO);
 
+        //Leemos el nombre de fichero
         String fileName = writeString(INTRODUCE_TEXTO);
 
+		//Creamos el objeto para el nuevo texto
         Text finalText = new Text(fileName, textRefi, textLength);
 
-        System.out.println(DEVUELVE_TEXTO);
-
+		//Imprimimos el resultado en pantalla
         System.out.println(finalText.getText());
 
 	}
-
-
 	/**
 	 * Función que pide la entrada de un entero con detección de errores
 	 * @param message Mensaje de petición que se mostrará
@@ -64,8 +67,6 @@ public class Main {
 
         }
     }
-
-
     /**
      * Función que pide el nombre de un fichero de texto
      * @param message  Mensaje de petición que se mostrará
