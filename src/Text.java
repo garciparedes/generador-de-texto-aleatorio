@@ -160,11 +160,17 @@ public class Text {
 
             } else {
 
-                char lastLetter = stringBuilder.charAt(stringBuilder.length()-1);
+                char lastLetter = stringBuilder.charAt(stringBuilder.length() - 1);
                 i = WordList.posicionLetra(lastLetter);
 
-                stringBuilder = putChar(stringBuilder, multiMatrizOriginal[i].getContinueLetter());
 
+                //Tratamos el caso de que esa sea la ultima letra, es decir,
+                // volvemos a seleccionar completamente al azar.
+                if (WordList.numeroDeLetras(multiMatrizOriginal[i].getContinueLetter()) != 0) {
+                    stringBuilder = putChar(stringBuilder, multiMatrizOriginal[i].getContinueLetter());
+                } else {
+                    stringBuilder = putChar(stringBuilder, multiMatrizOriginal);
+                }
             }
         }
 

@@ -54,6 +54,10 @@ public class WordList {
 
                 charCadena = Text.oriText.subSequence(i, i + dimension);
 
+            }catch (IndexOutOfBoundsException ignored){
+                dimension--;
+                charCadena = Text.oriText.subSequence(i, i + dimension);
+            }
                 char letra;
                 int posicion;
                 if (charCadena.length() > 0){
@@ -67,7 +71,6 @@ public class WordList {
                     multimatriz[posicion].introduceLetra(charCadena.subSequence(1, charCadena.length()));
                 }
 
-            }catch (IndexOutOfBoundsException ignored){}
 
         }
 

@@ -3,18 +3,10 @@
 /.idea
 
 *.iml
+*.DS_STORE
 
 doc/*
 
 /.settings
-<<<<<<< Updated upstream
-
-=======
-=======
 doc/*
->>>>>>> FETCH_HEAD
-=======
-doc/*
->>>>>>> FETCH_HEAD
 out/
->>>>>>> Stashed changes
