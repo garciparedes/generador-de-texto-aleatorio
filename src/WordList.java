@@ -33,7 +33,6 @@ public class WordList {
      */
     public static WordList[] newInstance(int dimension){
 
-        WordList[] multimatriz;
         char charLetter;
         CharSequence charCadena;
 
@@ -46,7 +45,9 @@ public class WordList {
 
         }
 
-        multimatriz = creaMultiMatriz(dimension);
+        WordList[] multimatriz = creaMultiMatriz(dimension);
+        char letra;
+        int posicion;
 
         //Rellena el array con los datos obtenidos pasando una segunda vez por el texto
         for(int i = 0 ; i < Text.oriText.length() ; i++ ){
@@ -58,18 +59,17 @@ public class WordList {
                 dimension--;
                 charCadena = Text.oriText.subSequence(i, i + dimension);
             }
-                char letra;
-                int posicion;
-                if (charCadena.length() > 0){
+            
+            if (charCadena.length() > 0){
 
-                    letra = charCadena.charAt(0);
+                letra = charCadena.charAt(0);
 
-                    posicion = posicionLetra(letra);
+                posicion = posicionLetra(letra);
 
-                    multimatriz[posicion].numLetter++;
+                multimatriz[posicion].numLetter++;
 
-                    multimatriz[posicion].introduceLetra(charCadena.subSequence(1, charCadena.length()));
-                }
+                multimatriz[posicion].introduceLetra(charCadena.subSequence(1, charCadena.length()));
+            }
 
 
         }
