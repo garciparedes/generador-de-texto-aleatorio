@@ -54,6 +54,19 @@ public class MyList<E> {
     public int size(){
         return array.length;
     }
-    
+
+
+    /**
+     *
+     * @return
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i< size(); i++){
+            sb.append(get(i).toString()+ " ");
+        }
+        return sb.toString();
+    }
 }
 
