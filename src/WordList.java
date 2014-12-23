@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * Clase para representar los caracteres
  *
@@ -32,7 +34,6 @@ public class WordList {
      */
     public static MyList<WordList> newInstance(int dimension){
 
-        char charLetter;
         CharSequence charCadena;
         MyList<WordList> multimatriz = new MyList<WordList>();
         char letra;
@@ -132,4 +133,36 @@ public class WordList {
         return indexOf(list, letter) >= 0;
     }
 
+
+    /**
+     * Metodo que devuelve el numero de letras que hay como esa.
+     *
+     * @param multimatriz Array en el cual se va a comprobar.
+     * @return Integer con el numero de letras.
+     */
+    public static int numeroDeLetras(MyList<WordList> multimatriz){
+        int acumulador = 0;
+        try {
+            for (int i = 0 ; i < multimatriz.size() ; i++){
+                acumulador += multimatriz.get(i).getNumLetter();
+            }
+        } catch (NullPointerException ignored){}
+
+        return acumulador;
+    }
+
+    /**
+     * Metodo que devuelve la posicion de la letra indicada y -1 si esta no esta.
+     *
+     * @param charLetter caracter a partir del cual se quiere saber la posicion-
+     * @return Integer con la posicion de la letra
+     */
+    public static int posicionLetra(MyList<WordList> letterArray,char charLetter){
+        for (int i = 0 ; i < letterArray.size() ; i++){
+            if (letterArray.get(i).getLetter() == charLetter){
+                return i;
+            }
+        }
+        return -1;
+    }
 }

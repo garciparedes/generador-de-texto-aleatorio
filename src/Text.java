@@ -104,33 +104,10 @@ public class Text {
      */
     private StringBuilder genText(int refi) {
 
-        StringBuilder texto  = new StringBuilder();
+        StringBuilder texto;
 
-        for (int i = 0 ; i < multiMatrizOriginal.size() ; i++){
-            System.out.println(
-                    multiMatrizOriginal.get(i).getLetter()
-                    + " = "
-                    + multiMatrizOriginal.get(i).getNumLetter()
-            );
-        }
-
-        for (int i = 0 ; i < multiMatrizOriginal.get(1).getContinueLetter().size() ; i++){
-            System.out.println(
-                    multiMatrizOriginal.get(1).getContinueLetter().get(i).getLetter()
-                            + " = "
-                            + multiMatrizOriginal.get(1).getContinueLetter().get(i).getNumLetter()
-            );
-        }
-
-        for (int i = 0 ; i < multiMatrizOriginal.get(1).getContinueLetter().get(0).getContinueLetter().size() ; i++){
-            System.out.println(
-                    multiMatrizOriginal.get(1).getContinueLetter().get(0).getContinueLetter().get(i).getLetter()
-                            + " = "
-                            + multiMatrizOriginal.get(1).getContinueLetter().get(0).getContinueLetter().get(i).getNumLetter()
-            );
-        }
-        /*
         switch (refi){
+
 
             case 0:
                 texto = randomChar();
@@ -145,10 +122,104 @@ public class Text {
                 texto = putChar(texto, multiMatrizOriginal);
                 break;
         }
-        */
+
 
         return texto;
     }
 
+    /**
+     * Metodo que recursivamente va añadiendo los caracteres al StringBuilder
+     *
+     * @param stringBuilder Variable a la que se van añadiendo caracteres
+     * @param multiMatriz Nivel a partir del cual se va a elegir el caracter a menos que sea el último nivel
+     * @return stringBuilder variable con el texto creado hasta el momento
+     */
+    private StringBuilder putChar(StringBuilder stringBuilder, MyList<WordList> multiMatriz){
+        int i;
 
+        if (stringBuilder.length() < lenghtText ) {
+
+            int numLetters;
+
+            numLetters = WordList.numeroDeLetras(multiMatriz);
+
+            if (numLetters != 0) {
+
+                int valor, rand;
+
+                rand = (int) (Math.random() * numLetters);
+                i = 0;
+                valor = multiMatriz.get(i).getNumLetter();
+
+                while (valor <= rand) {
+                    i++;
+                    valor += multiMatriz.get(i).getNumLetter();
+                }
+
+                stringBuilder.append(multiMatriz.get(i).getLetter());
+                stringBuilder = putChar(stringBuilder, multiMatriz.get(i).getContinueLetter());
+
+            } else {
+
+                char lastLetter = stringBuilder.charAt(stringBuilder.length() - 1);
+                i = WordList.posicionLetra(multiMatrizOriginal,lastLetter);
+
+                //Tratamos el caso de que esa sea la ultima letra, es decir,
+                // volvemos a seleccionar completamente al azar.
+                if (WordList.numeroDeLetras(multiMatrizOriginal.get(i).getContinueLetter()) != 0) {
+                    stringBuilder = putChar(stringBuilder, multiMatrizOriginal.get(i).getContinueLetter());
+                } else {
+                    stringBuilder = putChar(stringBuilder, multiMatrizOriginal);
+                }
+            }
+        }
+
+        return stringBuilder;
+    }
+
+
+
+    /**
+     * Metodo que genera un texto aleatorio eligiendo al azar entre los caracteres.
+     * @return StringBuilder con el texto.
+     */
+    private StringBuilder randomChar(){
+        int rand;
+        StringBuilder texto = new StringBuilder();
+        while (texto.length() < lenghtText ){
+            rand = (int)(Math.random() * multiMatrizOriginal.size());
+
+            texto.append(multiMatrizOriginal.get(rand).getLetter());
+        }
+        return texto;
+    }
+
+
+    /**
+     * Metodo que genera un texto aleatorio eligiendo aleatoriamente y de forma proporcional entre los caracteres.
+     *
+     * @return StringBuilder con el texto.
+     */
+    private StringBuilder proporcionalRandom(){
+        int rand, i, valor, numLetters;
+
+        StringBuilder texto = new StringBuilder();
+
+        numLetters = WordList.numeroDeLetras(multiMatrizOriginal);
+
+        while (texto.length() < lenghtText ){
+
+            i = 0;
+            rand = (int) (Math.random() * numLetters);
+            valor = multiMatrizOriginal.get(i).getNumLetter();
+
+            while (valor <= rand) {
+                i++;
+                valor += multiMatrizOriginal.get(i).getNumLetter();
+            }
+
+            texto.append(multiMatrizOriginal.get(i).getLetter());
+        }
+        return texto;
+    }
 }
