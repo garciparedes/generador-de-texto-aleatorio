@@ -26,6 +26,7 @@ public class WordList {
         this.continueLetter = continueLetter;
     }
 
+
     /**
      * Instanciador de la clase WordList
      *
@@ -89,9 +90,16 @@ public class WordList {
         return numLetter;
     }
 
+
+    /**
+     * Getter de continueLetter
+     *
+     * @return continueLetter
+     */
     public MyList<WordList> getContinueLetter() {
         return continueLetter;
     }
+
 
     /**
      * Metodo que incrementa el numero de letras que tiene un objeto WordList.
@@ -119,6 +127,13 @@ public class WordList {
     }
 
 
+    /**
+     * Metodo que devuelve entero con la posición de un objeto WorList de la lista.
+     *
+     * @param list Lista donde buscar.
+     * @param letter Letra que buscar.
+     * @return position del Objeto.
+     */
     private static int indexOf(MyList<WordList> list, char letter){
         for (int i = 0 ;  i < list.size(); i++){
             if (list.get(i).letter == letter){
@@ -129,6 +144,13 @@ public class WordList {
     }
 
 
+    /**
+     * Metodo boolean que devuelve true o false, según si el elemento pertenece o no a la lista.
+     *
+     * @param  list Lista donde buscar.
+     * @param letter Letra que buscar.
+     * @return Boolean pertenencia del objeto.
+     */
     private static boolean contains(MyList<WordList> list, char letter){
         return indexOf(list, letter) >= 0;
     }

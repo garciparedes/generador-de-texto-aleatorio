@@ -14,6 +14,7 @@ public class Text {
     private int lenghtText;
     private MyList<WordList> multiMatrizOriginal;
 
+
     /**
      * Constructor de la clase texto.
      * @param fileName Archivo Fuente.
@@ -103,9 +104,7 @@ public class Text {
      */
     private void genText(int refi) {
 
-
         switch (refi){
-
 
             case 0:
                 randomChar();
@@ -116,26 +115,9 @@ public class Text {
                 break;
 
             default:
-                putChar(multiMatrizOriginal);
-
-                int i;
-                while(text.length() < lenghtText){
-
-                    char lastLetter = text.charAt(text.length() - 1);
-                    i = WordList.posicionLetra(multiMatrizOriginal,lastLetter);
-
-                    //Tratamos el caso de que esa sea la ultima letra, es decir,
-                    // volvemos a seleccionar completamente al azar.
-                    if (WordList.numeroDeLetras(multiMatrizOriginal.get(i).getContinueLetter()) != 0) {
-                        putChar(multiMatrizOriginal.get(i).getContinueLetter());
-                    } else {
-                        putChar(multiMatrizOriginal);
-                    }
-
-                }
+                linkedRandom();
                 break;
         }
-
 
     }
 
@@ -147,11 +129,7 @@ public class Text {
      */
     private void putChar(MyList<WordList> multiMatriz){
 
-
-
         if (text.length() < lenghtText ) {
-
-
 
             int i;
             try {
@@ -176,6 +154,30 @@ public class Text {
         }
     }
 
+
+    /**
+     * Metodo random que depende siempre de la letra anterior,
+     * es decir, es enlazado.
+     */
+    private void linkedRandom(){
+        putChar(multiMatrizOriginal);
+
+        int i;
+        while(text.length() < lenghtText){
+
+            char lastLetter = text.charAt(text.length() - 1);
+            i = WordList.posicionLetra(multiMatrizOriginal,lastLetter);
+
+            //Tratamos el caso de que esa sea la ultima letra, es decir,
+            // volvemos a seleccionar completamente al azar.
+            if (WordList.numeroDeLetras(multiMatrizOriginal.get(i).getContinueLetter()) != 0) {
+                putChar(multiMatrizOriginal.get(i).getContinueLetter());
+            } else {
+                putChar(multiMatrizOriginal);
+            }
+
+        }
+    }
 
 
     /**
