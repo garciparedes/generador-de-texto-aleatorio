@@ -12,7 +12,7 @@ public class Text {
 
     private StringBuilder text = new StringBuilder();
     private int lenghtText;
-    private MyList<WordList> multiMatrizOriginal;
+    private MyList multiMatrizOriginal;
 
 
     /**
@@ -127,13 +127,13 @@ public class Text {
      * @param multiMatriz Nivel a partir del cual se va a elegir el caracter a menos que sea el último nivel
      * @return stringBuilder variable con el texto creado hasta el momento
      */
-    private void putChar(MyList<WordList> multiMatriz){
+    private void putChar(MyList multiMatriz){
 
         if (text.length() < lenghtText ) {
 
             int i;
             try {
-                int numLetters = WordList.numeroDeLetras(multiMatriz);
+                int numLetters = multiMatriz.numeroDeLetras();
 
                 int valor, rand;
 
@@ -166,11 +166,11 @@ public class Text {
         while(text.length() < lenghtText){
 
             char lastLetter = text.charAt(text.length() - 1);
-            i = WordList.posicionLetra(multiMatrizOriginal,lastLetter);
+            i = multiMatrizOriginal.indexOf(lastLetter);
 
             //Tratamos el caso de que esa sea la ultima letra, es decir,
             // volvemos a seleccionar completamente al azar.
-            if (WordList.numeroDeLetras(multiMatrizOriginal.get(i).getContinueLetter()) != 0) {
+            if (multiMatrizOriginal.get(i).getContinueLetter().numeroDeLetras() != 0) {
                 putChar(multiMatrizOriginal.get(i).getContinueLetter());
             } else {
                 putChar(multiMatrizOriginal);
@@ -202,7 +202,7 @@ public class Text {
     private void proporcionalRandom(){
         int rand, i, valor, numLetters;
 
-        numLetters = WordList.numeroDeLetras(multiMatrizOriginal);
+        numLetters = multiMatrizOriginal.numeroDeLetras();
 
         while (text.length() < lenghtText ){
 

@@ -23,14 +23,23 @@ public class Main {
 
         System.out.println(WELCOME);
 
-        int textLength = writeInt(INTRODUCE_NUM_CHAR, ERROR_LECTURA_ENTERO);
+        //int textLength = writeInt(INTRODUCE_NUM_CHAR, ERROR_LECTURA_ENTERO);
 
-		int textRefi = writeInt(INTRODUCE_NUM_REFI, ERROR_LECTURA_ENTERO);
+		//int textRefi = writeInt(INTRODUCE_NUM_REFI, ERROR_LECTURA_ENTERO);
 
-        String fileName = writeString(INTRODUCE_TEXTO);
+        //String fileName = writeString(INTRODUCE_TEXTO);
 
+        int textLength = 1000;
+        int textRefi = 20;
+        String fileName = "galdos.txt";
+
+        long TInicio, TFin, tiempo; //Variables para determinar el tiempo de ejecución
+        TInicio = System.currentTimeMillis(); //Tomamos la hora en que inicio el algoritmo y la almacenamos en la variable inicio
         Text finalText = new Text(fileName, textRefi, textLength);
 
+        TFin = System.currentTimeMillis(); //Tomamos la hora en que finalizó el algoritmo y la almacenamos en la variable T
+        tiempo = TFin - TInicio; //Calculamos los milisegundos de diferencia
+        System.out.println("Tiempo de ejecución en milisegundos: " + tiempo); //Mostramos en pantalla el tiempo de ejecución en milisegundos
         System.out.println(DEVUELVE_TEXTO);
 
         System.out.println(finalText.getText());

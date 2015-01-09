@@ -3,34 +3,26 @@ import java.util.Arrays;
 /**
  * Created by garciparedes on 4/12/14.
  */
-public class MyList<E> {
+public class MyList {
 
     
-    private Object[] array;
+    private WordList[] array;
 
 
     /**
      *
      */
     public MyList (){
-        this.array = new Object[0];
+        this.array = new WordList[0];
     }
 
-
-    /**
-     *
-     * @param defSize
-     */
-    public MyList (int defSize){
-        this.array = new Object[defSize];
-    }
 
 
     /**
      *
      * @param element
      */
-    public void add(E element){
+    public void add(WordList element){
         array = Arrays.copyOf(array, array.length+1);
         array[array.length-1] = element;
 
@@ -42,8 +34,8 @@ public class MyList<E> {
      * @param i
      * @return
      */
-    public E get(int i){
-        return (E) array[i];
+    public WordList get(int i){
+        return array[i];
     }
 
 
@@ -56,17 +48,46 @@ public class MyList<E> {
     }
 
 
+
+
     /**
+     * Metodo que devuelve entero con la posición de un objeto WorList de la lista.
      *
-     * @return
+     * @param letter Letra que buscar.
+     * @return position del Objeto.
      */
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i< size(); i++){
-            sb.append(get(i).toString()+ " ");
+    public int indexOf( char letter){
+        for (int i = 0 ;  i < size(); i++){
+            if (get(i).getLetter() == letter){
+                return i;
+            }
         }
-        return sb.toString();
+        return -1;
+    }
+
+
+    /**
+     * Metodo boolean que devuelve true o false, según si el elemento pertenece o no a la lista.
+     *
+     * @param letter Letra que buscar.
+     * @return Boolean pertenencia del objeto.
+     */
+    public boolean contains( char letter){
+        return indexOf( letter) >= 0;
+    }
+
+
+    /**
+     * Metodo que devuelve el numero de letras que hay como esa.
+     *
+     * @return Integer con el numero de letras.
+     */
+    public int numeroDeLetras(){
+        int acumulador = 0;
+        for (int i = 0 ; i < size() ; i++){
+            acumulador += get(i).getNumLetter();
+        }
+        return acumulador;
     }
 }
 

@@ -10,7 +10,7 @@ public class WordList {
 
     private char letter;
     private int numLetter;
-    private MyList<WordList> continueLetter;
+    private MyList continueLetter;
 
 
     /**
@@ -20,7 +20,7 @@ public class WordList {
      * @param numLetter numero de caracteres iguales que hay en el texto
      * @param continueLetter WordList[] formado por todos los caracteres que le siguen
      */
-    public WordList(char letter, int numLetter, MyList<WordList> continueLetter){
+    public WordList(char letter, int numLetter, MyList continueLetter){
         this.letter = letter;
         this.numLetter = numLetter;
         this.continueLetter = continueLetter;
@@ -33,10 +33,10 @@ public class WordList {
      * @param dimension Nivel de refinamiento del texto
      * @return WordList[] compuesto por todos los caracteres del texto con la dimension indicada
      */
-    public static MyList<WordList> newInstance(int dimension){
+    public static MyList newInstance(int dimension){
 
         CharSequence charCadena;
-        MyList<WordList> multimatriz = new MyList<WordList>();
+        MyList multimatriz = new MyList();
         char letra;
         int posicion;
 
@@ -53,12 +53,12 @@ public class WordList {
 
                 letra = charCadena.charAt(0);
 
-                if (!contains(multimatriz, letra)){
-                    multimatriz.add(new WordList(letra, 1, new MyList<WordList>()));
+                if (!multimatriz.contains( letra)){
+                    multimatriz.add(new WordList(letra, 1, new MyList()));
                     multimatriz.get(multimatriz.size()-1).introduceLetra(charCadena.subSequence(1, charCadena.length()));
                 }
                 else {
-                    posicion = indexOf(multimatriz, letra);
+                    posicion = multimatriz.indexOf( letra);
                     multimatriz.get(posicion).numLetter++;
                     multimatriz.get(posicion).introduceLetra(charCadena.subSequence(1, charCadena.length()));
                 }
@@ -96,7 +96,7 @@ public class WordList {
      *
      * @return continueLetter
      */
-    public MyList<WordList> getContinueLetter() {
+    public MyList getContinueLetter() {
         return continueLetter;
     }
 
@@ -114,12 +114,12 @@ public class WordList {
 
             letter = charCadena.charAt(0);
 
-            if (!contains(continueLetter, letter)){
-                continueLetter.add(new WordList(letter, 1, new MyList<WordList>()));
+            if (!continueLetter.contains( letter)){
+                continueLetter.add(new WordList(letter, 1, new MyList()));
                 continueLetter.get(continueLetter.size()-1).introduceLetra(charCadena.subSequence(1, charCadena.length()));
             }
             else {
-                posicion = indexOf(continueLetter, letter);
+                posicion = continueLetter.indexOf( letter);
                 continueLetter.get(posicion).numLetter++;
                 continueLetter.get(posicion).introduceLetra(charCadena.subSequence(1, charCadena.length()));
             }
@@ -127,61 +127,5 @@ public class WordList {
     }
 
 
-    /**
-     * Metodo que devuelve entero con la posición de un objeto WorList de la lista.
-     *
-     * @param list Lista donde buscar.
-     * @param letter Letra que buscar.
-     * @return position del Objeto.
-     */
-    private static int indexOf(MyList<WordList> list, char letter){
-        for (int i = 0 ;  i < list.size(); i++){
-            if (list.get(i).letter == letter){
-                return i;
-            }
-        }
-        return -1;
-    }
 
-
-    /**
-     * Metodo boolean que devuelve true o false, según si el elemento pertenece o no a la lista.
-     *
-     * @param  list Lista donde buscar.
-     * @param letter Letra que buscar.
-     * @return Boolean pertenencia del objeto.
-     */
-    private static boolean contains(MyList<WordList> list, char letter){
-        return indexOf(list, letter) >= 0;
-    }
-
-
-    /**
-     * Metodo que devuelve el numero de letras que hay como esa.
-     *
-     * @param multimatriz Array en el cual se va a comprobar.
-     * @return Integer con el numero de letras.
-     */
-    public static int numeroDeLetras(MyList<WordList> multimatriz){
-        int acumulador = 0;
-            for (int i = 0 ; i < multimatriz.size() ; i++){
-                acumulador += multimatriz.get(i).getNumLetter();
-            }
-        return acumulador;
-    }
-
-    /**
-     * Metodo que devuelve la posicion de la letra indicada y -1 si esta no esta.
-     *
-     * @param charLetter caracter a partir del cual se quiere saber la posicion-
-     * @return Integer con la posicion de la letra
-     */
-    public static int posicionLetra(MyList<WordList> letterArray,char charLetter){
-        for (int i = 0 ; i < letterArray.size() ; i++){
-            if (letterArray.get(i).getLetter() == charLetter){
-                return i;
-            }
-        }
-        return -1;
-    }
 }
