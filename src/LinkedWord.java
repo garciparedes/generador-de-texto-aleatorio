@@ -1,8 +1,5 @@
-import java.util.Arrays;
 
-/**
- * Created by garciparedes on 4/12/14.
- */
+
 public class LinkedWord {
 
     private int size = 0;
@@ -10,10 +7,8 @@ public class LinkedWord {
     private LinkedWord siguiente;
     private LinkedWord hijo;
 
-
     private char letter;
     private int numLetter;
-
 
 
     public LinkedWord(CharSequence charCadena){
@@ -21,12 +16,7 @@ public class LinkedWord {
         introduceLetra(charCadena.subSequence(1, charCadena.length()));
     }
 
-    /**
-     * Instanciador de la clase WordList
-     *
-     * @param dimension Nivel de refinamiento del texto
-     * @return WordList[] compuesto por todos los caracteres del texto con la dimension indicada
-     */
+
     public LinkedWord(int dimension){
 
         if (dimension ==0){
@@ -48,11 +38,6 @@ public class LinkedWord {
     }
 
 
-    /**
-     * Metodo que incrementa el numero de letras que tiene un objeto WordList.
-     *
-     * @param charCadena caracteres que quedan por anadir para terminar ese nivel.
-     */
     public void introduceLetra ( CharSequence charCadena){
         char letra;
         numLetter++;
@@ -81,18 +66,6 @@ public class LinkedWord {
         size++;
     }
 
-    public void prueba(){
-
-        LinkedWord l = hijo;
-        l = l.siguiente.siguiente.siguiente.hijo;
-
-        while (l != null){
-            System.out.println(l.letter + "  " + l.numLetter);
-
-            l = l.siguiente;
-        }
-    }
-
 
     public LinkedWord get(int posicion){
         LinkedWord lw = hijo;
@@ -119,6 +92,7 @@ public class LinkedWord {
         return lw;
     }
 
+
     public int size(){
         return size;
     }
@@ -141,11 +115,6 @@ public class LinkedWord {
 
     public int getNumLetter(char letter) {
         return get(letter).numLetter;
-    }
-
-
-    public char getLetter() {
-        return letter;
     }
 
 
