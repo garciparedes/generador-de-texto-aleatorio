@@ -25,7 +25,16 @@ public class Text {
         oriText = readFile(fileName);
 
         this.lenghtText = lenghtText;
-        this.multiMatrizOriginal = WordList.newInstance(refi);
+        this.multiMatrizOriginal = MyList.newInstance(refi);
+
+        for (int i = 0; i < multiMatrizOriginal.size() ; i++){
+            System.out.println(multiMatrizOriginal.getLetter(i) + " = " + multiMatrizOriginal.getNumLetter(i));
+        }
+
+        for (int i = 0; i < multiMatrizOriginal.get(1).size() ; i++){
+            System.out.println(multiMatrizOriginal.get(1).getLetter(i) + " = " + multiMatrizOriginal.get(1).getNumLetter(i));
+        }
+
         genText(refi);
     }
 
@@ -96,12 +105,7 @@ public class Text {
     }
 
 
-    /**
-     * Metodo que genera el nuevo texto. Lo que hace es elegir que tipo de generacion de texto tiene que seguir.
-     *
-     * @param refi Nivel de refinamiento del texto nuevo.
-     * @return texto StringBuilder con el resultado del texto generado
-     */
+
     private void genText(int refi) {
 
         switch (refi){
@@ -121,19 +125,15 @@ public class Text {
 
     }
 
-    /**
-     * Metodo que recursivamente va añadiendo los caracteres al StringBuilder
-     *
-     * @param multiMatriz Nivel a partir del cual se va a elegir el caracter a menos que sea el último nivel
-     * @return stringBuilder variable con el texto creado hasta el momento
-     */
+
     private void putChar(MyList multiMatriz){
 
         if (text.length() < lenghtText ) {
 
             int i;
+
             try {
-                int numLetters = multiMatriz.numeroDeLetras();
+                int numLetters = multiMatriz.getNumLetter();
 
                 int valor, rand;
 
@@ -147,7 +147,7 @@ public class Text {
                 }
 
                 text.append(multiMatriz.get(i).getLetter());
-                putChar( multiMatriz.get(i).getContinueLetter());
+                putChar( multiMatriz.get(i));
 
             }catch (ArrayIndexOutOfBoundsException ignored){}
 
@@ -155,23 +155,19 @@ public class Text {
     }
 
 
-    /**
-     * Metodo random que depende siempre de la letra anterior,
-     * es decir, es enlazado.
-     */
+
     private void linkedRandom(){
         putChar(multiMatrizOriginal);
 
-        int i;
+        char lastLetter;
         while(text.length() < lenghtText){
 
-            char lastLetter = text.charAt(text.length() - 1);
-            i = multiMatrizOriginal.indexOf(lastLetter);
+            lastLetter = text.charAt(text.length() - 1);
 
             //Tratamos el caso de que esa sea la ultima letra, es decir,
             // volvemos a seleccionar completamente al azar.
-            if (multiMatrizOriginal.get(i).getContinueLetter().numeroDeLetras() != 0) {
-                putChar(multiMatrizOriginal.get(i).getContinueLetter());
+            if (multiMatrizOriginal.getNumLetter(lastLetter) != 0) {
+                putChar(multiMatrizOriginal.get(lastLetter));
             } else {
                 putChar(multiMatrizOriginal);
             }
@@ -180,10 +176,7 @@ public class Text {
     }
 
 
-    /**
-     * Metodo que genera un texto aleatorio eligiendo al azar entre los caracteres.
-     * @return StringBuilder con el texto.
-     */
+
     private void randomChar(){
         int rand;
         while (text.length() < lenghtText ){
@@ -194,15 +187,11 @@ public class Text {
     }
 
 
-    /**
-     * Metodo que genera un texto aleatorio eligiendo aleatoriamente y de forma proporcional entre los caracteres.
-     *
-     * @return StringBuilder con el texto.
-     */
+
     private void proporcionalRandom(){
         int rand, i, valor, numLetters;
 
-        numLetters = multiMatrizOriginal.numeroDeLetras();
+        numLetters = multiMatrizOriginal.getNumLetter();
 
         while (text.length() < lenghtText ){
 

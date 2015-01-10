@@ -33,17 +33,18 @@ public class Main {
         int textRefi = 20;
         String fileName = "galdos.txt";
 
-        long TInicio, TFin, tiempo; //Variables para determinar el tiempo de ejecución
-        TInicio = System.currentTimeMillis(); //Tomamos la hora en que inicio el algoritmo y la almacenamos en la variable inicio
-        Text finalText = new Text(fileName, textRefi, textLength);
+        for(int i = 0 ; i < 10 ; i++) {
+            long TInicio, TFin, tiempo; //Variables para determinar el tiempo de ejecución
+            TInicio = System.currentTimeMillis(); //Tomamos la hora en que inicio el algoritmo y la almacenamos en la variable inicio
+            Text finalText = new Text(fileName, textRefi, textLength);
 
-        TFin = System.currentTimeMillis(); //Tomamos la hora en que finalizó el algoritmo y la almacenamos en la variable T
-        tiempo = TFin - TInicio; //Calculamos los milisegundos de diferencia
-        System.out.println("Tiempo de ejecución en milisegundos: " + tiempo); //Mostramos en pantalla el tiempo de ejecución en milisegundos
-        System.out.println(DEVUELVE_TEXTO);
+            TFin = System.currentTimeMillis(); //Tomamos la hora en que finalizó el algoritmo y la almacenamos en la variable T
+            tiempo = TFin - TInicio; //Calculamos los milisegundos de diferencia
+            System.out.println("Tiempo de ejecución en milisegundos: " + tiempo); //Mostramos en pantalla el tiempo de ejecución en milisegundos
+            System.out.println(DEVUELVE_TEXTO);
 
-        System.out.println(finalText.getText());
-
+            System.out.println(finalText.getText());
+        }
 	}
 
 
