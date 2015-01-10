@@ -119,9 +119,6 @@ public class LinkedWord {
         return lw;
     }
 
-
-
-
     public int size(){
         return size;
     }

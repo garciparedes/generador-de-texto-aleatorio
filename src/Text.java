@@ -27,20 +27,6 @@ public class Text {
         this.lenghtText = lenghtText;
         this.wordTadOriginal = new LinkedWord(refi);
 
-        //wordTadOriginal.prueba();
-
-        /*
-        for (int i = 0; i < wordTadOriginal.size() ; i++){
-            System.out.println(wordTadOriginal.getLetter(i) + " = " + wordTadOriginal.getNumLetter(i));
-        }
-
-
-        for (int i = 0; i < wordTadOriginal.get(1).size() ; i++){
-            System.out.println(wordTadOriginal.get(1).getLetter(i) + " = " + wordTadOriginal.get(1).getNumLetter(i));
-        }
-
-        */
-
         genText(refi);
     }
 
@@ -109,9 +95,7 @@ public class Text {
 
         return textBuilder;
     }
-
-
-
+    
 
     private void genText(int refi) {
 

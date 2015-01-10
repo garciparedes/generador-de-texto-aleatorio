@@ -23,15 +23,13 @@ public class Main {
 
         System.out.println(WELCOME);
 
-        //int textLength = writeInt(INTRODUCE_NUM_CHAR, ERROR_LECTURA_ENTERO);
+        int textLength = writeInt(INTRODUCE_NUM_CHAR, ERROR_LECTURA_ENTERO);
 
-		//int textRefi = writeInt(INTRODUCE_NUM_REFI, ERROR_LECTURA_ENTERO);
+		int textRefi = writeInt(INTRODUCE_NUM_REFI, ERROR_LECTURA_ENTERO);
 
-        //String fileName = writeString(INTRODUCE_TEXTO);
+        String fileName = writeString(INTRODUCE_TEXTO);
 
-        int textLength = 1000;
-        int textRefi = 20;
-        String fileName = "galdos.txt";
+
 
         for(int i = 0 ; i < 1 ; i++) {
             long TInicio, TFin, tiempo; //Variables para determinar el tiempo de ejecución
