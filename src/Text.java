@@ -12,7 +12,7 @@ public class Text {
 
     private StringBuilder text = new StringBuilder();
     private int lenghtText;
-    private Word wordTadOriginal;
+    private LinkedWord wordTadOriginal;
 
 
     /**
@@ -25,7 +25,7 @@ public class Text {
         oriText = readFile(fileName);
 
         this.lenghtText = lenghtText;
-        this.wordTadOriginal = new Word(refi);
+        this.wordTadOriginal = new LinkedWord(refi);
 
         genText(refi);
     }
@@ -117,7 +117,7 @@ public class Text {
     }
 
 
-    private void putChar(Word wordTad){
+    private void putChar(LinkedWord wordTad){
 
         if (text.length() < lenghtText ) {
 
