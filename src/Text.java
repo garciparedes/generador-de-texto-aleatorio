@@ -180,8 +180,7 @@ public class Text {
         int rand;
         while (text.length() < lenghtText ){
             rand = (int)(Math.random() * wordTadOriginal.size());
-
-            text.append(wordTadOriginal.get(rand).getLetter());
+            text.append(wordTadOriginal.getLetter(rand));
         }
     }
 
@@ -196,14 +195,14 @@ public class Text {
 
             i = 0;
             rand = (int) (Math.random() * numLetters);
-            valor = wordTadOriginal.get(i).getNumLetter();
+            valor = wordTadOriginal.getNumLetter(i);
 
             while (valor <= rand) {
                 i++;
-                valor += wordTadOriginal.get(i).getNumLetter();
+                valor += wordTadOriginal.getNumLetter(i);
             }
 
-            text.append(wordTadOriginal.get(i).getLetter());
+            text.append(wordTadOriginal.getLetter(i));
         }
     }
 }
