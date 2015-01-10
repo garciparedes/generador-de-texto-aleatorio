@@ -12,7 +12,7 @@ public class Text {
 
     private StringBuilder text = new StringBuilder();
     private int lenghtText;
-    private MyList multiMatrizOriginal;
+    private Word wordTadOriginal;
 
 
     /**
@@ -25,14 +25,14 @@ public class Text {
         oriText = readFile(fileName);
 
         this.lenghtText = lenghtText;
-        this.multiMatrizOriginal = MyList.newInstance(refi);
+        this.wordTadOriginal = new Word(refi);
 
-        for (int i = 0; i < multiMatrizOriginal.size() ; i++){
-            System.out.println(multiMatrizOriginal.getLetter(i) + " = " + multiMatrizOriginal.getNumLetter(i));
+        for (int i = 0; i < wordTadOriginal.size() ; i++){
+            System.out.println(wordTadOriginal.getLetter(i) + " = " + wordTadOriginal.getNumLetter(i));
         }
 
-        for (int i = 0; i < multiMatrizOriginal.get(1).size() ; i++){
-            System.out.println(multiMatrizOriginal.get(1).getLetter(i) + " = " + multiMatrizOriginal.get(1).getNumLetter(i));
+        for (int i = 0; i < wordTadOriginal.get(1).size() ; i++){
+            System.out.println(wordTadOriginal.get(1).getLetter(i) + " = " + wordTadOriginal.get(1).getNumLetter(i));
         }
 
         genText(refi);
@@ -126,28 +126,27 @@ public class Text {
     }
 
 
-    private void putChar(MyList multiMatriz){
+    private void putChar(Word wordTad){
 
         if (text.length() < lenghtText ) {
 
             int i;
 
             try {
-                int numLetters = multiMatriz.getNumLetter();
+                int numLetters = wordTad.getNumLetter();
 
-                int valor, rand;
+                int rand = (int) (Math.random() * numLetters);
 
-                rand = (int) (Math.random() * numLetters);
                 i = 0;
-                valor = multiMatriz.get(i).getNumLetter();
+                int valor = wordTad.getNumLetter(i);
 
                 while (valor <= rand) {
                     i++;
-                    valor += multiMatriz.get(i).getNumLetter();
+                    valor += wordTad.getNumLetter(i);
                 }
 
-                text.append(multiMatriz.get(i).getLetter());
-                putChar( multiMatriz.get(i));
+                text.append(wordTad.getLetter(i));
+                putChar( wordTad.get(i));
 
             }catch (ArrayIndexOutOfBoundsException ignored){}
 
@@ -157,7 +156,7 @@ public class Text {
 
 
     private void linkedRandom(){
-        putChar(multiMatrizOriginal);
+        putChar(wordTadOriginal);
 
         char lastLetter;
         while(text.length() < lenghtText){
@@ -166,10 +165,10 @@ public class Text {
 
             //Tratamos el caso de que esa sea la ultima letra, es decir,
             // volvemos a seleccionar completamente al azar.
-            if (multiMatrizOriginal.getNumLetter(lastLetter) != 0) {
-                putChar(multiMatrizOriginal.get(lastLetter));
+            if (wordTadOriginal.getNumLetter(lastLetter) != 0) {
+                putChar(wordTadOriginal.get(lastLetter));
             } else {
-                putChar(multiMatrizOriginal);
+                putChar(wordTadOriginal);
             }
 
         }
@@ -180,9 +179,9 @@ public class Text {
     private void randomChar(){
         int rand;
         while (text.length() < lenghtText ){
-            rand = (int)(Math.random() * multiMatrizOriginal.size());
+            rand = (int)(Math.random() * wordTadOriginal.size());
 
-            text.append(multiMatrizOriginal.get(rand).getLetter());
+            text.append(wordTadOriginal.get(rand).getLetter());
         }
     }
 
@@ -191,20 +190,20 @@ public class Text {
     private void proporcionalRandom(){
         int rand, i, valor, numLetters;
 
-        numLetters = multiMatrizOriginal.getNumLetter();
+        numLetters = wordTadOriginal.getNumLetter();
 
         while (text.length() < lenghtText ){
 
             i = 0;
             rand = (int) (Math.random() * numLetters);
-            valor = multiMatrizOriginal.get(i).getNumLetter();
+            valor = wordTadOriginal.get(i).getNumLetter();
 
             while (valor <= rand) {
                 i++;
-                valor += multiMatrizOriginal.get(i).getNumLetter();
+                valor += wordTadOriginal.get(i).getNumLetter();
             }
 
-            text.append(multiMatrizOriginal.get(i).getLetter());
+            text.append(wordTadOriginal.get(i).getLetter());
         }
     }
 }

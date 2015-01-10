@@ -33,7 +33,7 @@ public class Main {
         int textRefi = 20;
         String fileName = "galdos.txt";
 
-        for(int i = 0 ; i < 10 ; i++) {
+        for(int i = 0 ; i < 5 ; i++) {
             long TInicio, TFin, tiempo; //Variables para determinar el tiempo de ejecución
             TInicio = System.currentTimeMillis(); //Tomamos la hora en que inicio el algoritmo y la almacenamos en la variable inicio
             Text finalText = new Text(fileName, textRefi, textLength);

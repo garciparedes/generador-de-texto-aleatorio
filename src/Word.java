@@ -3,26 +3,18 @@ import java.util.Arrays;
 /**
  * Created by garciparedes on 4/12/14.
  */
-public class MyList {
+public class Word {
 
-    
-    //private WordList[] array;
     private char letter;
     private int numLetter;
-    private MyList[] array;
+    private Word[] array;
 
 
-    /**
-     *
-     */
-    public MyList (){
-        this.array = new MyList[0];
-    }
 
-    public MyList(char letter, int numLetter){
-        this.letter = letter;
-        this.numLetter = numLetter;
-        this.array = new MyList[0];
+    public Word(CharSequence charCadena){
+        this.letter = charCadena.charAt(0);
+        this.array = new Word[0];
+        introduceLetra(charCadena.subSequence(1, charCadena.length()));
     }
 
     /**
@@ -31,12 +23,14 @@ public class MyList {
      * @param dimension Nivel de refinamiento del texto
      * @return WordList[] compuesto por todos los caracteres del texto con la dimension indicada
      */
-    public static MyList newInstance(int dimension){
+    public Word(int dimension){
+
+        if (dimension ==0){
+            dimension = 1;
+        }
 
         CharSequence charCadena;
-        MyList multimatriz = new MyList();
-        char letra;
-        int posicion;
+        this.array = new Word[0];
 
         //Rellena el array con los datos obtenidos pasando una segunda vez por el texto
         for(int i = 0 ; i < Text.oriText.length() ; i++ ){
@@ -47,27 +41,10 @@ public class MyList {
                 charCadena = Text.oriText.subSequence(i, i + dimension);
             }
 
-            multimatriz.numLetter++;
-
-            if (charCadena.length() > 0){
-
-                letra = charCadena.charAt(0);
-
-                if (!multimatriz.contains( letra)){
-                    multimatriz.add(new MyList(letra, 1));
-                    multimatriz.get(multimatriz.size()-1).introduceLetra(charCadena.subSequence(1, charCadena.length()));
-                }
-                else {
-                    posicion = multimatriz.indexOf( letra);
-                    multimatriz.get(posicion).numLetter++;
-                    multimatriz.get(posicion).introduceLetra(charCadena.subSequence(1, charCadena.length()));
-                }
-            }
-
+            introduceLetra(charCadena);
 
         }
 
-        return multimatriz;
     }
 
 
@@ -77,21 +54,18 @@ public class MyList {
      * @param charCadena caracteres que quedan por anadir para terminar ese nivel.
      */
     public void introduceLetra ( CharSequence charCadena){
-        char letter;
-        int posicion;
+        char letra;
+        numLetter++;
 
         if (charCadena.length() > 0){
 
-            letter = charCadena.charAt(0);
+            letra = charCadena.charAt(0);
 
-            if (!contains(letter)){
-                add(new MyList(letter, 1));
-                get(size() - 1).introduceLetra(charCadena.subSequence(1, charCadena.length()));
+            if (!contains(letra)){
+                add(new Word( charCadena));
             }
             else {
-                //posicion = indexOf(letter);
-                get(letter).numLetter++;
-                get(letter).introduceLetra(charCadena.subSequence(1, charCadena.length()));
+                get(letra).introduceLetra(charCadena.subSequence(1, charCadena.length()));
             }
         }
     }
@@ -100,7 +74,7 @@ public class MyList {
      *
      * @param element
      */
-    public void add(MyList element){
+    public void add(Word element){
         array = Arrays.copyOf(array, array.length+1);
         array[array.length-1] = element;
 
@@ -112,11 +86,11 @@ public class MyList {
      * @param i
      * @return
      */
-    public MyList get(int i){
+    public Word get(int i){
         return array[i];
     }
 
-    public MyList get(char letter){
+    public Word get(char letter){
         return array[indexOf(letter)];
     }
 
