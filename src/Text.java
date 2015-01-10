@@ -12,7 +12,7 @@ public class Text {
 
     private StringBuilder text = new StringBuilder();
     private int lenghtText;
-    private Word wordTadOriginal;
+    private LinkedWord wordTadOriginal;
 
 
     /**
@@ -25,15 +25,21 @@ public class Text {
         oriText = readFile(fileName);
 
         this.lenghtText = lenghtText;
-        this.wordTadOriginal = new Word(refi);
+        this.wordTadOriginal = new LinkedWord(refi);
 
+        //wordTadOriginal.prueba();
+
+        /*
         for (int i = 0; i < wordTadOriginal.size() ; i++){
             System.out.println(wordTadOriginal.getLetter(i) + " = " + wordTadOriginal.getNumLetter(i));
         }
 
+
         for (int i = 0; i < wordTadOriginal.get(1).size() ; i++){
             System.out.println(wordTadOriginal.get(1).getLetter(i) + " = " + wordTadOriginal.get(1).getNumLetter(i));
         }
+
+        */
 
         genText(refi);
     }
@@ -106,6 +112,7 @@ public class Text {
 
 
 
+
     private void genText(int refi) {
 
         switch (refi){
@@ -126,7 +133,7 @@ public class Text {
     }
 
 
-    private void putChar(Word wordTad){
+    private void putChar(LinkedWord wordTad){
 
         if (text.length() < lenghtText ) {
 
@@ -148,7 +155,7 @@ public class Text {
                 text.append(wordTad.getLetter(i));
                 putChar( wordTad.get(i));
 
-            }catch (ArrayIndexOutOfBoundsException ignored){}
+            }catch (NullPointerException ignored){}
 
         }
     }
@@ -205,4 +212,5 @@ public class Text {
             text.append(wordTadOriginal.getLetter(i));
         }
     }
+
 }
