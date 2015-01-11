@@ -25,6 +25,10 @@ public class Text {
     public Text(String fileName, int refi, int lenghtText) {
         oriText = readFile(fileName);
 
+        while (refi > oriText.length()) {
+            System.out.println("Error: El nivel de refinamiento no puede ser mayor que el numero de caracteres del texto.");
+            refi = Main.writeInt(Main.INTRODUCE_NUM_REFI, Main.ERROR_LECTURA_ENTERO);
+        }
         this.lenghtText = lenghtText;
         this.wordTadOriginal = new LinkedWord(refi);
 
@@ -61,9 +65,8 @@ public class Text {
         try {
             // Apertura del fichero y creacion de BufferedReader para poder
             // hacer una lectura comoda (disponer del metodo readLine()).
-            file = new File(
-                    ROUTE
-                            + fileName
+            file = new File(ROUTE
+                    + fileName
             );
 
             fr = new FileReader(file);
@@ -95,7 +98,6 @@ public class Text {
                 e2.printStackTrace();
             }
         }
-
         return textBuilder;
     }
 
@@ -104,7 +106,6 @@ public class Text {
      * Metodo que genera el nuevo texto. Lo que hace es elegir que tipo de generacion de texto tiene que seguir.
      *
      * @param refi Nivel de refinamiento del texto nuevo.
-     * @return texto StringBuilder con el resultado del texto generado
      */
     private void genText(int refi) {
 
@@ -122,7 +123,6 @@ public class Text {
                 linkedRandom();
                 break;
         }
-
     }
 
 
@@ -130,7 +130,6 @@ public class Text {
      * Metodo que recursivamente va añadiendo los caracteres al StringBuilder
      *
      * @param wordTad Nivel a partir del cual se va a elegir el caracter a menos que sea el último nivel
-     * @return stringBuilder variable con el texto creado hasta el momento
      */
     private void putChar(LinkedWord wordTad) {
 
@@ -139,22 +138,13 @@ public class Text {
             int i;
 
             try {
-                int numLetters = wordTad.getNumLetter();
 
-                int rand = (int) (Math.random() * numLetters);
-
-                i = 0;
-                int valor = wordTad.getNumLetter(i);
-
-                while (valor <= rand) {
-                    i++;
-                    valor += wordTad.getNumLetter(i);
-                }
+                i = wordTad.selectRandomLetter();
 
                 text.append(wordTad.getLetter(i));
                 putChar(wordTad.get(i));
 
-            } catch (NullPointerException | ArrayIndexOutOfBoundsException ignored) {
+            } catch (NullPointerException ignored) {
             }
 
         }
@@ -175,20 +165,17 @@ public class Text {
 
             //Tratamos el caso de que esa sea la ultima letra, es decir,
             // volvemos a seleccionar completamente al azar.
-            if (wordTadOriginal.getNumLetter(lastLetter) != 0) {
+            if (wordTadOriginal.get(lastLetter).size() > 0) {
                 putChar(wordTadOriginal.get(lastLetter));
             } else {
                 putChar(wordTadOriginal);
             }
-
         }
     }
 
 
     /**
      * Metodo que genera un texto aleatorio eligiendo al azar entre los caracteres.
-     *
-     * @return StringBuilder con el texto.
      */
     private void randomChar() {
         int rand;
@@ -201,24 +188,13 @@ public class Text {
 
     /**
      * Metodo que genera un texto aleatorio eligiendo aleatoriamente y de forma proporcional entre los caracteres.
-     *
-     * @return StringBuilder con el texto.
      */
     private void proporcionalRandom() {
-        int rand, i, valor, numLetters;
-
-        numLetters = wordTadOriginal.getNumLetter();
+        int i;
 
         while (text.length() < lenghtText) {
 
-            i = 0;
-            rand = (int) (Math.random() * numLetters);
-            valor = wordTadOriginal.getNumLetter(i);
-
-            while (valor <= rand) {
-                i++;
-                valor += wordTadOriginal.getNumLetter(i);
-            }
+            i = wordTadOriginal.selectRandomLetter();
 
             text.append(wordTadOriginal.getLetter(i));
         }

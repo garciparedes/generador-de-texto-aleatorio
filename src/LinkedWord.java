@@ -159,17 +159,6 @@ public class LinkedWord {
     /**
      * Metodo que devuelve el numero de letras que hay como esa en un nivel inferior.
      *
-     * @param posicion Indice del objeto que se quiere comprobar.
-     * @return Integer con el numero de letras.
-     */
-    public int getNumLetter(int posicion) {
-        return get(posicion).numLetter;
-    }
-
-
-    /**
-     * Metodo que devuelve el numero de letras que hay como esa en un nivel inferior.
-     *
      * @param letter letra que se quiere comprobar.
      * @return Integer con el numero de letras.
      */
@@ -189,5 +178,22 @@ public class LinkedWord {
     }
 
 
+    public int selectRandomLetter(){
+
+        int i;
+        int rand = (int) (Math.random() * getNumLetter());
+
+        LinkedWord lw = hijo;
+        i = 0;
+        int valor = lw.getNumLetter();
+
+        while (valor <= rand) {
+            i++;
+            lw = lw.siguiente;
+            valor += lw.getNumLetter();
+        }
+
+        return i;
+    }
 }
 
