@@ -1,5 +1,11 @@
 
 
+/**
+ * Clase para representar los caracteres
+ *
+ * @author Sergio Garcia Prado
+ * @author Alberto Amigo Alonso
+ */
 public class LinkedWord {
 
     private int size = 0;
@@ -11,24 +17,34 @@ public class LinkedWord {
     private int numLetter;
 
 
-    public LinkedWord(CharSequence charCadena){
+    /**
+     * Constructor de la clase
+     *
+     * @param charCadena cadena sobre la que se van creando los distintos niveles.
+     */
+    private LinkedWord(CharSequence charCadena) {
         this.letter = charCadena.charAt(0);
         introduceLetra(charCadena.subSequence(1, charCadena.length()));
     }
 
 
-    public LinkedWord(int dimension){
+    /**
+     * Constructor de la clase
+     *
+     * @param dimension Nivel de refinamiento del texto
+     */
+    public LinkedWord(int dimension) {
 
-        if (dimension ==0){
+        if (dimension == 0) {
             dimension = 1;
         }
 
         CharSequence charCadena;
 
-        for(int i = 0 ; i < Text.oriText.length() ; i++ ){
+        for (int i = 0; i < Text.oriText.length(); i++) {
             try {
                 charCadena = Text.oriText.subSequence(i, i + dimension);
-            }catch (IndexOutOfBoundsException e){
+            } catch (IndexOutOfBoundsException e) {
                 dimension--;
                 charCadena = Text.oriText.subSequence(i, i + dimension);
             }
@@ -38,26 +54,35 @@ public class LinkedWord {
     }
 
 
-    public void introduceLetra ( CharSequence charCadena){
+    /**
+     * Metodo que incrementa el numero de letras que tiene un objeto WordList.
+     *
+     * @param charCadena caracteres que quedan por anadir para terminar ese nivel.
+     */
+    public void introduceLetra(CharSequence charCadena) {
         char letra;
         numLetter++;
 
-        if (charCadena.length() > 0){
+        if (charCadena.length() > 0) {
 
             letra = charCadena.charAt(0);
 
-            if (!contains(letra)){
+            if (!contains(letra)) {
                 add(new LinkedWord(charCadena));
-            }
-            else {
+            } else {
                 get(letra).introduceLetra(charCadena.subSequence(1, charCadena.length()));
             }
         }
     }
 
 
-    public void add(LinkedWord nuevo){
-        if (hijo == null){
+    /**
+     * Metodo que añade objetos LinkedWord al nivel inferior.
+     *
+     * @param nuevo Letra que se quiere añadir.
+     */
+    public void add(LinkedWord nuevo) {
+        if (hijo == null) {
             hijo = nuevo;
         } else {
             nuevo.siguiente = hijo.siguiente;
@@ -67,25 +92,37 @@ public class LinkedWord {
     }
 
 
-    public LinkedWord get(int posicion){
+    /**
+     * Metodo para recuperar los objetos almacenados en el nivel inferior
+     *
+     * @param posicion Indice del objeto.
+     * @return LinkedWord letra.
+     */
+    public LinkedWord get(int posicion) {
         LinkedWord lw = hijo;
-        for (int i = 0 ; i < posicion ; i++){
+        for (int i = 0; i < posicion; i++) {
             lw = lw.siguiente;
         }
         return lw;
     }
 
 
-    public LinkedWord get(char letter){
-        if (hijo == null){
+    /**
+     * Metodo para recuperar los objetos almacenados en el nivel inferior
+     *
+     * @param letter letra que se quiere recuperar.
+     * @return LinkedWord letra.
+     */
+    public LinkedWord get(char letter) {
+        if (hijo == null) {
             return null;
         }
         LinkedWord lw = hijo;
 
-        while (lw.letter != letter){
+        while (lw.letter != letter) {
             lw = lw.siguiente;
 
-            if (lw == null){
+            if (lw == null) {
                 return null;
             }
         }
@@ -93,33 +130,62 @@ public class LinkedWord {
     }
 
 
-    public int size(){
+    public int size() {
         return size;
     }
 
 
-    public boolean contains( char letter){
+    /**
+     * Metodo boolean que devuelve true o false, según si el elemento pertenece o no a la lista.
+     *
+     * @param letter Letra que buscar.
+     * @return Boolean pertenencia del objeto.
+     */
+    public boolean contains(char letter) {
         return get(letter) != null;
     }
 
 
+    /**
+     * Metodo que devuelve el numero de letras que hay como esa.
+     *
+     * @return Integer con el numero de letras.
+     */
     public int getNumLetter() {
         return numLetter;
     }
 
 
-    public int getNumLetter(int i) {
-        return get(i).numLetter;
+    /**
+     * Metodo que devuelve el numero de letras que hay como esa en un nivel inferior.
+     *
+     * @param posicion Indice del objeto que se quiere comprobar.
+     * @return Integer con el numero de letras.
+     */
+    public int getNumLetter(int posicion) {
+        return get(posicion).numLetter;
     }
 
 
+    /**
+     * Metodo que devuelve el numero de letras que hay como esa en un nivel inferior.
+     *
+     * @param letter letra que se quiere comprobar.
+     * @return Integer con el numero de letras.
+     */
     public int getNumLetter(char letter) {
         return get(letter).numLetter;
     }
 
 
-    public char getLetter(int i) {
-        return get(i).letter;
+    /**
+     * Getter de Letter en nivel inferior
+     *
+     * @param posicion Indice del objeto que se quiere comprobar.
+     * @return letter
+     */
+    public char getLetter(int posicion) {
+        return get(posicion).letter;
     }
 
 

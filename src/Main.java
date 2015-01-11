@@ -17,56 +17,55 @@ public class Main {
 
 
     /**
-	 * @param args Argumento necesario para el metodo main
-	 */
-	public static void main(String[] args) {
+     * @param args Argumento necesario para el metodo main
+     */
+    public static void main(String[] args) {
 
         System.out.println(WELCOME);
 
         int textLength = writeInt(INTRODUCE_NUM_CHAR, ERROR_LECTURA_ENTERO);
 
-		int textRefi = writeInt(INTRODUCE_NUM_REFI, ERROR_LECTURA_ENTERO);
+        int textRefi = writeInt(INTRODUCE_NUM_REFI, ERROR_LECTURA_ENTERO);
 
         String fileName = writeString(INTRODUCE_TEXTO);
 
+        long TInicio, TFin, tiempo; //Variables para determinar el tiempo de ejecución
+        TInicio = System.currentTimeMillis(); //Tomamos la hora en que inicio el algoritmo y la almacenamos en la variable inicio
+        Text finalText = new Text(fileName, textRefi, textLength);
+
+        TFin = System.currentTimeMillis(); //Tomamos la hora en que finalizó el algoritmo y la almacenamos en la variable T
+        tiempo = TFin - TInicio; //Calculamos los milisegundos de diferencia
+        System.out.println("Tiempo de ejecución en milisegundos: " + tiempo); //Mostramos en pantalla el tiempo de ejecución en milisegundos
+        System.out.println(DEVUELVE_TEXTO);
+
+        System.out.println(finalText.getText());
+
+    }
 
 
-        for(int i = 0 ; i < 1 ; i++) {
-            long TInicio, TFin, tiempo; //Variables para determinar el tiempo de ejecución
-            TInicio = System.currentTimeMillis(); //Tomamos la hora en que inicio el algoritmo y la almacenamos en la variable inicio
-            Text finalText = new Text(fileName, textRefi, textLength);
-
-            TFin = System.currentTimeMillis(); //Tomamos la hora en que finalizó el algoritmo y la almacenamos en la variable T
-            tiempo = TFin - TInicio; //Calculamos los milisegundos de diferencia
-            System.out.println("Tiempo de ejecución en milisegundos: " + tiempo); //Mostramos en pantalla el tiempo de ejecución en milisegundos
-            System.out.println(DEVUELVE_TEXTO);
-
-            System.out.println(finalText.getText());
-        }
-	}
-
-
-	/**
-	 * Función que pide la entrada de un entero con detección de errores
-	 * @param message Mensaje de petición que se mostrará
-	 * @param errorMessage Mensaje de error que puede surgir
-	 * @return Devuelve un número positivo introducido por entrada estandar
-	 */
-    public static int writeInt(String message, String errorMessage){
+    /**
+     * Función que pide la entrada de un entero con detección de errores
+     *
+     * @param message      Mensaje de petición que se mostrará
+     * @param errorMessage Mensaje de error que puede surgir
+     * @return Devuelve un número positivo introducido por entrada estandar
+     */
+    public static int writeInt(String message, String errorMessage) {
 
         System.out.print(message);
 
-        try{
+        try {
             sc = new Scanner(System.in);
             int n = sc.nextInt();
 
-            if (n< 0) {
-            		return writeInt(message, errorMessage);
-            	}
+            if (n < 0) {
+                System.out.println(errorMessage);
+                return writeInt(message, errorMessage);
+            }
 
-			return n;
+            return n;
 
-        }catch (Exception InputMismatchException){
+        } catch (Exception InputMismatchException) {
             System.out.println(errorMessage);
             return writeInt(message, errorMessage);
 
@@ -76,10 +75,11 @@ public class Main {
 
     /**
      * Función que pide el nombre de un fichero de texto
-     * @param message  Mensaje de petición que se mostrará
+     *
+     * @param message Mensaje de petición que se mostrará
      * @return Devuelve el nombre de un fichero de texto
      */
-    public static String writeString(String message){
+    public static String writeString(String message) {
         System.out.print(message);
         sc = new Scanner(System.in);
 

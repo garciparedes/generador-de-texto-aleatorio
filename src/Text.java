@@ -17,8 +17,9 @@ public class Text {
 
     /**
      * Constructor de la clase texto.
-     * @param fileName Archivo Fuente.
-     * @param refi Nivel de refinamiento del texto.
+     *
+     * @param fileName   Archivo Fuente.
+     * @param refi       Nivel de refinamiento del texto.
      * @param lenghtText Numero de caracteres que tendra.
      */
     public Text(String fileName, int refi, int lenghtText) {
@@ -33,6 +34,7 @@ public class Text {
 
     /**
      * Getter del texto
+     *
      * @return text
      */
     public StringBuilder getText() {
@@ -42,6 +44,7 @@ public class Text {
 
     /**
      * Metodo readFile que sirve para guardar el fichero txt en una variable Stringbuilder
+     *
      * @param fileName Fichero fuente
      * @return textBuilder variable que recoge el contenido del fichero
      */
@@ -60,7 +63,7 @@ public class Text {
             // hacer una lectura comoda (disponer del metodo readLine()).
             file = new File(
                     ROUTE
-                    + fileName
+                            + fileName
             );
 
             fr = new FileReader(file);
@@ -95,11 +98,17 @@ public class Text {
 
         return textBuilder;
     }
-    
 
+
+    /**
+     * Metodo que genera el nuevo texto. Lo que hace es elegir que tipo de generacion de texto tiene que seguir.
+     *
+     * @param refi Nivel de refinamiento del texto nuevo.
+     * @return texto StringBuilder con el resultado del texto generado
+     */
     private void genText(int refi) {
 
-        switch (refi){
+        switch (refi) {
 
             case 0:
                 randomChar();
@@ -117,9 +126,15 @@ public class Text {
     }
 
 
-    private void putChar(LinkedWord wordTad){
+    /**
+     * Metodo que recursivamente va añadiendo los caracteres al StringBuilder
+     *
+     * @param wordTad Nivel a partir del cual se va a elegir el caracter a menos que sea el último nivel
+     * @return stringBuilder variable con el texto creado hasta el momento
+     */
+    private void putChar(LinkedWord wordTad) {
 
-        if (text.length() < lenghtText ) {
+        if (text.length() < lenghtText) {
 
             int i;
 
@@ -137,20 +152,24 @@ public class Text {
                 }
 
                 text.append(wordTad.getLetter(i));
-                putChar( wordTad.get(i));
+                putChar(wordTad.get(i));
 
-            }catch (NullPointerException|ArrayIndexOutOfBoundsException ignored){}
+            } catch (NullPointerException | ArrayIndexOutOfBoundsException ignored) {
+            }
 
         }
     }
 
 
-
-    private void linkedRandom(){
+    /**
+     * Metodo random que depende siempre de la letra anterior,
+     * es decir, es enlazado.
+     */
+    private void linkedRandom() {
         putChar(wordTadOriginal);
 
         char lastLetter;
-        while(text.length() < lenghtText){
+        while (text.length() < lenghtText) {
 
             lastLetter = text.charAt(text.length() - 1);
 
@@ -166,23 +185,31 @@ public class Text {
     }
 
 
-
-    private void randomChar(){
+    /**
+     * Metodo que genera un texto aleatorio eligiendo al azar entre los caracteres.
+     *
+     * @return StringBuilder con el texto.
+     */
+    private void randomChar() {
         int rand;
-        while (text.length() < lenghtText ){
-            rand = (int)(Math.random() * wordTadOriginal.size());
+        while (text.length() < lenghtText) {
+            rand = (int) (Math.random() * wordTadOriginal.size());
             text.append(wordTadOriginal.getLetter(rand));
         }
     }
 
 
-
-    private void proporcionalRandom(){
+    /**
+     * Metodo que genera un texto aleatorio eligiendo aleatoriamente y de forma proporcional entre los caracteres.
+     *
+     * @return StringBuilder con el texto.
+     */
+    private void proporcionalRandom() {
         int rand, i, valor, numLetters;
 
         numLetters = wordTadOriginal.getNumLetter();
 
-        while (text.length() < lenghtText ){
+        while (text.length() < lenghtText) {
 
             i = 0;
             rand = (int) (Math.random() * numLetters);

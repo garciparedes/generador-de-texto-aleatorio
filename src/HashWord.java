@@ -11,7 +11,7 @@ public class HashWord {
     private int m = 16;
     private double maxL = 0.8;
 
-    public HashWord(CharSequence charCadena){
+    public HashWord(CharSequence charCadena) {
         this.letter = charCadena.charAt(0);
         this.array = new HashWord[m];
         introduceLetra(charCadena.subSequence(1, charCadena.length()));
@@ -23,9 +23,9 @@ public class HashWord {
      * @param dimension Nivel de refinamiento del texto
      * @return WordList[] compuesto por todos los caracteres del texto con la dimension indicada
      */
-    public HashWord(int dimension){
+    public HashWord(int dimension) {
 
-        if (dimension ==0){
+        if (dimension == 0) {
             dimension = 1;
         }
 
@@ -33,10 +33,10 @@ public class HashWord {
         this.array = new HashWord[m];
 
         //Rellena el array con los datos obtenidos pasando una segunda vez por el texto
-        for(int i = 0 ; i < Text.oriText.length() ; i++ ){
+        for (int i = 0; i < Text.oriText.length(); i++) {
             try {
                 charCadena = Text.oriText.subSequence(i, i + dimension);
-            }catch (IndexOutOfBoundsException e){
+            } catch (IndexOutOfBoundsException e) {
                 dimension--;
                 charCadena = Text.oriText.subSequence(i, i + dimension);
             }
@@ -48,11 +48,15 @@ public class HashWord {
     }
 
     // Devuelve el indice correspondiente a esa clave
-    protected int indice(Character c) { return c.hashCode() % m; }
+    protected int indice(Character c) {
+        return c.hashCode() % m;
+    }
 
     // Calcula el salto de exploración
     protected int salto(Character c) {
-        int s = c.hashCode() / m; return (s % 2 == 0) ? s+1 : s; }
+        int s = c.hashCode() / m;
+        return (s % 2 == 0) ? s + 1 : s;
+    }
 
 
     /**
@@ -60,18 +64,17 @@ public class HashWord {
      *
      * @param charCadena caracteres que quedan por anadir para terminar ese nivel.
      */
-    public void introduceLetra ( CharSequence charCadena){
+    public void introduceLetra(CharSequence charCadena) {
         char letra;
         numLetter++;
 
-        if (charCadena.length() > 0){
+        if (charCadena.length() > 0) {
 
             letra = charCadena.charAt(0);
 
-            if (!contains(letra)){
+            if (!contains(letra)) {
                 add(new HashWord(charCadena));
-            }
-            else {
+            } else {
                 get(letra).introduceLetra(charCadena.subSequence(1, charCadena.length()));
             }
         }
@@ -115,21 +118,18 @@ public class HashWord {
     }
 
 
-    public HashWord get(int i){
+    public HashWord get(int i) {
         return array[i];
     }
 
-    public HashWord get(char letter){
+    public HashWord get(char letter) {
         return array[indexOf(letter)];
     }
 
 
-
-    public int size(){
+    public int size() {
         return array.length;
     }
-
-
 
 
     /**
@@ -138,7 +138,7 @@ public class HashWord {
      * @param letter Letra que buscar.
      * @return position del Objeto.
      */
-    public int indexOf( Character letter){
+    public int indexOf(Character letter) {
 
         // Aplicar función de dispersión a la clave
         int i = indice(letter);
@@ -147,10 +147,10 @@ public class HashWord {
         // Explorar la tabla hasta posición nula o la clave.
         // Una par nulo detiene la exploración, pero una
         // clave nula no (borrado perezoso)
-        while(array[i] != null &&
+        while (array[i] != null &&
                 (array[i].letter == null ||
                         !array[i].letter.equals(letter))) {
-            i = (i+d) % m;
+            i = (i + d) % m;
         }
         return i;
     }
@@ -162,7 +162,7 @@ public class HashWord {
      * @param letter Letra que buscar.
      * @return Boolean pertenencia del objeto.
      */
-    public boolean contains( char letter){
+    public boolean contains(char letter) {
         return get(letter) != null;
     }
 
