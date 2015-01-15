@@ -82,12 +82,8 @@ public class LinkedWord {
      * @param nuevo Letra que se quiere añadir.
      */
     public void add(LinkedWord nuevo) {
-        if (hijo == null) {
-            hijo = nuevo;
-        } else {
-            nuevo.siguiente = hijo.siguiente;
-            hijo.siguiente = nuevo;
-        }
+        nuevo.siguiente = hijo;
+        hijo = nuevo;
         size++;
     }
 
